@@ -154,7 +154,7 @@ export default function FeaturedWork() {
   }, [activeCategory]);
 
   return (
-    <section className="relative w-full bg-[#0C0C0E] py-20 lg:py-32 px-6 sm:px-12 md:px-16 overflow-hidden select-none">
+    <section className="relative w-full bg-[#0C0C0E] py-8 lg:py-16 px-6 sm:px-12 md:px-16 overflow-hidden select-none">
 
       {/* Glow highlight */}
       <div className="absolute top-1/2 left-[-10%] w-[350px] md:w-[700px] h-[350px] md:h-[700px] bg-[#FF5C00]/5 rounded-full blur-[140px] pointer-events-none z-0" />
@@ -179,8 +179,8 @@ export default function FeaturedWork() {
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
                 className={`px-6 py-2.5 rounded-full border text-sm font-semibold tracking-wide transition-all duration-300 ${activeCategory === cat.id
-                    ? "bg-[#FF5C00] border-[#FF5C00] text-white shadow-[0_0_20px_rgba(255,92,0,0.4)]"
-                    : "border-gray-800 text-gray-400 hover:border-gray-600 hover:text-white"
+                  ? "bg-[#FF5C00] border-[#FF5C00] text-white shadow-[0_0_20px_rgba(255,92,0,0.4)]"
+                  : "border-gray-800 text-gray-400 hover:border-gray-600 hover:text-white"
                   }`}
               >
                 {cat.label}
@@ -284,8 +284,8 @@ export default function FeaturedWork() {
                 key={idx}
                 onClick={() => scrollTo(idx)}
                 className={`h-2.5 rounded-full transition-all duration-300 ${activeIndex === idx
-                    ? "w-8 bg-[#FF5C00]"
-                    : "w-2.5 bg-gray-700 hover:bg-gray-500"
+                  ? "w-8 bg-[#FF5C00]"
+                  : "w-2.5 bg-gray-700 hover:bg-gray-500"
                   }`}
                 aria-label={`Go to slide ${idx + 1}`}
               />
@@ -299,8 +299,8 @@ export default function FeaturedWork() {
               onClick={handlePrev}
               disabled={activeIndex === 0}
               className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-300 ${activeIndex === 0
-                  ? "border-gray-800 text-gray-700 cursor-not-allowed"
-                  : "border-gray-700 text-white hover:border-[#FF5C00] hover:text-[#FF5C00]"
+                ? "border-gray-800 text-gray-700 cursor-not-allowed"
+                : "border-gray-700 text-white hover:border-[#FF5C00] hover:text-[#FF5C00]"
                 }`}
             >
               <ArrowLeft className="w-5 h-5" />
@@ -311,8 +311,8 @@ export default function FeaturedWork() {
               onClick={handleNext}
               disabled={activeIndex === filteredWorks.length - 1}
               className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${activeIndex === filteredWorks.length - 1
-                  ? "bg-gray-800 text-gray-500 cursor-not-allowed"
-                  : "bg-[#FF5C00] text-white hover:bg-[#FF7324] shadow-[0_0_15px_rgba(255,92,0,0.3)]"
+                ? "bg-gray-800 text-gray-500 cursor-not-allowed"
+                : "bg-[#FF5C00] text-white hover:bg-[#FF7324] shadow-[0_0_15px_rgba(255,92,0,0.3)]"
                 }`}
             >
               <ArrowRight className="w-5 h-5" />
