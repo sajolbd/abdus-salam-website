@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import { Josefin_Sans } from "next/font/google";
+import Navbar from "components/Navbar";
+import Footer from "components/Footer";
 
 const josefinSans = Josefin_Sans({
   subsets: ["latin"],
@@ -11,7 +13,7 @@ const josefinSans = Josefin_Sans({
   variable: "--font-josefin-sans",
 });
 
-const siteUrl = "https://dxg-digital.vercel.app";
+const siteUrl = "https://abdus-salam-editor.vercel.app/";
 const ogImageUrl = `${siteUrl}/og-image.png`;
 
 /* ---------------- METADATA ---------------- */
@@ -71,8 +73,11 @@ export default function RootLayout({
           </style>
         </noscript>
 
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
 }
+
