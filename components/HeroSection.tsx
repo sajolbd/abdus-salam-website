@@ -1,17 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
-import { 
-  ArrowUpRight, 
-  Play, 
+import {
+  ArrowUpRight,
+  Play,
   Pause,
-  Scissors, 
-  Crop, 
-  RotateCw, 
-  Lock, 
-  Eye, 
-  Volume2, 
-  Sparkles, 
+  Scissors,
+  Crop,
+  RotateCw,
+  Lock,
+  Eye,
+  Volume2,
+  Sparkles,
   Music,
   Menu,
   X,
@@ -48,11 +48,11 @@ export default function HeroSection() {
 
   return (
     <div className={`${plusJakarta.className} relative min-h-screen bg-[#0C0C0E] text-white overflow-hidden select-none`}>
-      
+
       {/* ---------------- GLOW EFFECTS & STREAKS ---------------- */}
       {/* Central Radial Glow */}
       <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[300px] sm:w-[600px] md:w-[900px] h-[300px] sm:h-[600px] md:h-[700px] bg-gradient-to-b from-[#FF5C00]/25 to-transparent rounded-full blur-[100px] md:blur-[140px] pointer-events-none z-0" />
-      
+
       {/* Geometric Light Arches (as seen in screenshot) */}
       <div className="absolute top-[-5%] left-1/2 -translate-x-1/2 w-[350px] sm:w-[650px] md:w-[950px] h-[250px] sm:h-[450px] md:h-[550px] border border-[#FF5C00]/10 rounded-full blur-[2px] pointer-events-none z-0" />
       <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[450px] sm:w-[780px] md:w-[1100px] h-[300px] sm:h-[550px] md:h-[650px] border border-[#FF5C00]/5 rounded-full blur-[4px] pointer-events-none z-0" />
@@ -64,7 +64,7 @@ export default function HeroSection() {
           <div className="w-9 h-9 bg-white/5 rounded-xl flex items-center justify-center border border-white/10 group-hover:border-[#FF5C00]/30 transition-all duration-300">
             {/* Custom Camera Aperture SVG */}
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-white group-hover:text-[#FF5C00] transition-colors duration-300">
-              <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 4C14.07 4 15.93 4.83 17.29 6.17L12.54 10.92C12.38 10.97 12.2 11 12 11C11.45 11 11 10.55 11 10C11 9.8 11.03 9.62 11.08 9.46L6.17 4.55C7.75 3.58 9.8 3 12 3V4ZM4.55 6.17L9.46 11.08C9.3 11.24 9.2 11.46 9.2 11.7C9.2 12.25 9.65 12.7 10.2 12.7C10.44 12.7 10.66 12.6 10.82 12.44L15.73 17.35C14.15 18.32 12.1 18.9 9.9 18.9C7.83 18.9 5.97 18.07 4.61 16.73L9.36 11.98C9.52 11.93 9.7 11.9 9.9 11.9C10.45 11.9 10.9 12.35 10.9 12.9C10.9 13.1 10.87 13.28 10.82 13.44L15.73 18.35C14.15 19.32 12.1 19.9 9.9 19.9C5.48 19.9 1.9 16.32 1.9 11.9C1.9 7.48 5.48 3.9 9.9 3.9V4.9L4.55 6.17ZM17.35 15.73L12.44 10.82C12.6 10.66 12.7 10.44 12.7 10.2C12.7 9.65 12.25 9.2 11.7 9.2C11.46 9.2 11.24 9.3 11.08 9.46L6.17 4.55C7.75 3.58 9.8 3 12 3C16.42 3 20 6.58 20 11C20 13.07 19.17 14.93 17.83 16.29L13.08 11.54C13.13 11.38 13.16 11.2 13.16 11C13.16 10.45 12.71 10 12.16 10C11.96 10 11.78 10.03 11.62 11.08L17.35 15.73Z" fill="currentColor"/>
+              <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 4C14.07 4 15.93 4.83 17.29 6.17L12.54 10.92C12.38 10.97 12.2 11 12 11C11.45 11 11 10.55 11 10C11 9.8 11.03 9.62 11.08 9.46L6.17 4.55C7.75 3.58 9.8 3 12 3V4ZM4.55 6.17L9.46 11.08C9.3 11.24 9.2 11.46 9.2 11.7C9.2 12.25 9.65 12.7 10.2 12.7C10.44 12.7 10.66 12.6 10.82 12.44L15.73 17.35C14.15 18.32 12.1 18.9 9.9 18.9C7.83 18.9 5.97 18.07 4.61 16.73L9.36 11.98C9.52 11.93 9.7 11.9 9.9 11.9C10.45 11.9 10.9 12.35 10.9 12.9C10.9 13.1 10.87 13.28 10.82 13.44L15.73 18.35C14.15 19.32 12.1 19.9 9.9 19.9C5.48 19.9 1.9 16.32 1.9 11.9C1.9 7.48 5.48 3.9 9.9 3.9V4.9L4.55 6.17ZM17.35 15.73L12.44 10.82C12.6 10.66 12.7 10.44 12.7 10.2C12.7 9.65 12.25 9.2 11.7 9.2C11.46 9.2 11.24 9.3 11.08 9.46L6.17 4.55C7.75 3.58 9.8 3 12 3C16.42 3 20 6.58 20 11C20 13.07 19.17 14.93 17.83 16.29L13.08 11.54C13.13 11.38 13.16 11.2 13.16 11C13.16 10.45 12.71 10 12.16 10C11.96 10 11.78 10.03 11.62 11.08L17.35 15.73Z" fill="currentColor" />
             </svg>
           </div>
           <span className="text-xl font-bold tracking-tight text-white group-hover:text-gray-200 transition-colors">AbdusSalam</span>
@@ -86,7 +86,7 @@ export default function HeroSection() {
         </div>
 
         {/* Mobile menu trigger */}
-        <button 
+        <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="md:hidden p-2 text-gray-400 hover:text-white transition-colors"
           aria-label="Toggle menu"
@@ -98,7 +98,7 @@ export default function HeroSection() {
       {/* Mobile Navigation Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -118,9 +118,9 @@ export default function HeroSection() {
 
       {/* ---------------- HERO CONTENT ---------------- */}
       <main className="relative max-w-7xl mx-auto px-6 pt-12 md:pt-20 pb-32 flex flex-col items-center justify-center text-center z-10">
-        
+
         {/* Title */}
-        <motion.h1 
+        <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -131,7 +131,7 @@ export default function HeroSection() {
         </motion.h1>
 
         {/* Subtitle */}
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.15 }}
@@ -141,7 +141,7 @@ export default function HeroSection() {
         </motion.p>
 
         {/* CTA and Reviews Group */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
@@ -157,27 +157,27 @@ export default function HeroSection() {
             {/* Avatars */}
             <div className="flex -space-x-3">
               <div className="w-9 h-9 rounded-full border-2 border-[#0C0C0E] overflow-hidden relative">
-                <Image 
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" 
-                  alt="Creator Avatar" 
+                <Image
+                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
+                  alt="Creator Avatar"
                   fill
                   sizes="36px"
                   className="object-cover"
                 />
               </div>
               <div className="w-9 h-9 rounded-full border-2 border-[#0C0C0E] overflow-hidden relative">
-                <Image 
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" 
-                  alt="Creator Avatar" 
+                <Image
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80"
+                  alt="Creator Avatar"
                   fill
                   sizes="36px"
                   className="object-cover"
                 />
               </div>
               <div className="w-9 h-9 rounded-full border-2 border-[#0C0C0E] overflow-hidden relative">
-                <Image 
-                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" 
-                  alt="Creator Avatar" 
+                <Image
+                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80"
+                  alt="Creator Avatar"
                   fill
                   sizes="36px"
                   className="object-cover"
@@ -203,7 +203,7 @@ export default function HeroSection() {
         </motion.div>
 
         {/* ---------------- SHOWCASE MOCKUP ---------------- */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
@@ -211,16 +211,16 @@ export default function HeroSection() {
         >
           {/* Mockup Outer Board with Glowing Border */}
           <div className="w-full bg-[#121214] p-2 sm:p-4 rounded-[2rem] border border-[#FF5C00]/25 shadow-[0_0_80px_rgba(255,92,0,0.18)] relative overflow-hidden">
-            
+
             {/* Real Interface Canvas */}
             <div className="w-full bg-[#F3F1EC] rounded-[1.6rem] p-4 sm:p-6 md:p-8 flex flex-col gap-6 text-gray-800 relative z-10 overflow-hidden">
-              
+
               {/* Top Main Workspace Row */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center min-h-[380px] relative">
-                
+
                 {/* 1. LEFT TOOLBAR (Floating or aligned) */}
                 <div className="md:col-span-2 flex md:justify-start justify-center">
-                  <motion.div 
+                  <motion.div
                     {...floatAnimation(0.2)}
                     className="bg-white p-2 rounded-full md:rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] flex md:flex-col gap-3 sm:gap-4 border border-gray-100/80 w-auto md:w-16 items-center py-2.5 md:py-6"
                   >
@@ -235,14 +235,14 @@ export default function HeroSection() {
                     <button className="p-2.5 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-700 transition-colors">
                       <RotateCw className="w-5 h-5" />
                     </button>
-                    
+
                     {/* Active Crop Tool (Exactly as screenshot) */}
                     <div className="relative">
                       <button className="p-2.5 rounded-xl bg-gray-50 text-gray-800 border border-gray-100/50 shadow-sm relative">
                         <Crop className="w-5 h-5 text-gray-800" />
                         <span className="absolute bottom-1 right-1 w-1.5 h-1.5 bg-[#FF5C00] rounded-full" />
                       </button>
-                      
+
                       {/* Mouse Pointer hovering over crop tool */}
                       <svg className="absolute bottom-[-16px] left-[24px] w-5 h-5 drop-shadow-md pointer-events-none z-30" viewBox="0 0 24 24" fill="none">
                         <path d="M4.5 3V17L9.5 13.5L14.5 20.5L17.5 18.5L12.5 11.5L17.5 11V3H4.5Z" fill="black" stroke="white" strokeWidth="1.5" />
@@ -262,9 +262,9 @@ export default function HeroSection() {
                   <div className="relative w-full max-w-[500px] aspect-[4/3] bg-white rounded-3xl p-3 shadow-[0_12px_40px_rgba(0,0,0,0.05)] border border-gray-100/80 overflow-hidden group">
                     {/* Outer Portrait Image Wrapper */}
                     <div className="relative w-full h-full rounded-2xl overflow-hidden bg-gray-100">
-                      <Image 
-                        src="/images/home/hero-section/video_preview_portrait.png" 
-                        alt="Editing Portrait Preview" 
+                      <Image
+                        src="/images/home/hero-section/video_preview_portrait.png"
+                        alt="Editing Portrait Preview"
                         fill
                         priority
                         className="object-cover"
@@ -272,12 +272,12 @@ export default function HeroSection() {
 
                       {/* Green Selection Box Overlaid (Exact crop frame) */}
                       <div className="absolute inset-8 border-2 border-[#57F287] rounded-xl shadow-[0_0_0_9999px_rgba(0,0,0,0.4)]">
-                        {/* Corner Selection Handles */}
+                        {/* Corners Selection Handles */}
                         <span className="absolute -top-1.5 -left-1.5 w-3.5 h-3.5 bg-white border-2 border-[#57F287] rounded-sm" />
                         <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-white border-2 border-[#57F287] rounded-sm" />
                         <span className="absolute -bottom-1.5 -left-1.5 w-3.5 h-3.5 bg-white border-2 border-[#57F287] rounded-sm" />
                         <span className="absolute -bottom-1.5 -right-1.5 w-3.5 h-3.5 bg-white border-2 border-[#57F287] rounded-sm" />
-                        
+
                         {/* Grid lines inside crop */}
                         <div className="w-full h-full grid grid-cols-3 grid-rows-3 opacity-30">
                           <div className="border-r border-b border-[#57F287] border-dashed" />
@@ -295,7 +295,7 @@ export default function HeroSection() {
                       {/* Video Player Play Button Overlay */}
                       <div className="absolute inset-0 flex items-center justify-center z-10">
                         {/* Play button with pulsing orange glow ring */}
-                        <div 
+                        <div
                           onClick={() => setIsPlaying(!isPlaying)}
                           className="relative w-14 h-14 bg-[#FF5C00] rounded-full flex items-center justify-center text-white cursor-pointer shadow-[0_0_30px_rgba(255,92,0,0.5)] active:scale-95 hover:scale-110 transition-transform duration-300"
                         >
@@ -304,7 +304,7 @@ export default function HeroSection() {
                           ) : (
                             <Play className="w-5 h-5 fill-white text-white translate-x-[2px]" />
                           )}
-                          
+
                           {/* Animated Ripple ring */}
                           <span className="absolute -inset-2.5 border-2 border-white/40 rounded-full animate-ping pointer-events-none" />
                         </div>
@@ -317,7 +317,7 @@ export default function HeroSection() {
                 {/* Floating "Video Effects" Badges */}
                 <div className="md:col-span-2 flex flex-col gap-4 items-center md:items-end w-full">
                   {/* Video Effects Widget */}
-                  <motion.div 
+                  <motion.div
                     {...floatAnimation(0.4)}
                     className="bg-white py-3 px-4 rounded-2xl shadow-[0_10px_35px_rgba(0,0,0,0.06)] border border-gray-100 flex items-center gap-3 w-48 md:absolute md:right-[-20px] md:top-[12%]"
                   >
@@ -335,14 +335,14 @@ export default function HeroSection() {
                   </motion.div>
 
                   {/* Creator chat Widget */}
-                  <motion.div 
+                  <motion.div
                     {...floatAnimation(0.7)}
                     className="bg-[#19191D] text-white py-2 px-3 rounded-2xl shadow-[0_12px_35px_rgba(0,0,0,0.12)] border border-white/5 flex items-center gap-2.5 w-32 md:absolute md:right-[10px] md:top-[60%]"
                   >
                     <div className="w-6 h-6 rounded-full relative overflow-hidden bg-gray-600">
-                      <Image 
-                        src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" 
-                        alt="User Profile" 
+                      <Image
+                        src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
+                        alt="User Profile"
                         fill
                         sizes="24px"
                         className="object-cover"
@@ -356,7 +356,7 @@ export default function HeroSection() {
 
               {/* Bottom Timeline Panel */}
               <div className="w-full bg-white rounded-2xl p-4 sm:p-5 shadow-[0_8px_35px_rgba(0,0,0,0.03)] border border-gray-100 flex flex-col gap-4 relative">
-                
+
                 {/* 1. Timeline Controls Header */}
                 <div className="flex flex-col sm:flex-row justify-between items-center gap-3 pb-2 border-b border-gray-100">
                   {/* Time Counter */}
@@ -392,7 +392,7 @@ export default function HeroSection() {
 
                 {/* 2. Timeline Tracks Grid */}
                 <div className="relative flex flex-col gap-3.5 pt-2">
-                  
+
                   {/* Scrubber Playhead Line (Exactly vertical) */}
                   <div className="absolute left-[35%] top-0 bottom-0 w-[1.5px] bg-black/80 z-20 flex flex-col items-center">
                     <div className="w-3.5 h-3.5 bg-black rounded-b-md transform translate-y-[-6px]" />
@@ -421,9 +421,9 @@ export default function HeroSection() {
                       {/* Repeated Video Thumbnail Frames */}
                       {[...Array(6)].map((_, i) => (
                         <div key={i} className="h-full aspect-[4/3] rounded-md overflow-hidden relative opacity-85">
-                          <Image 
-                            src="/images/home/hero-section/video_preview_portrait.png" 
-                            alt="Frame" 
+                          <Image
+                            src="/images/home/hero-section/video_preview_portrait.png"
+                            alt="Frame"
                             fill
                             sizes="60px"
                             className="object-cover scale-110"
@@ -435,10 +435,10 @@ export default function HeroSection() {
 
                   {/* Track 2: Audio / Commercial Sound (Purple/Blue theme) */}
                   <div className="grid grid-cols-12 items-center gap-4 relative">
-                    
+
                     {/* Floating Audio Tag element with Note (matching screenshot exactly) */}
                     <div className="absolute left-[45%] top-[-32px] z-30">
-                      <motion.div 
+                      <motion.div
                         {...floatAnimation(0.9)}
                         className="bg-white p-2 rounded-xl shadow-[0_8px_20px_rgba(0,0,0,0.06)] border border-gray-100 flex items-center justify-center w-12 h-12 relative"
                       >
@@ -467,7 +467,7 @@ export default function HeroSection() {
                     <div className="col-span-12 lg:col-span-9 bg-[#EBF0FF] border border-[#CBD5E0] rounded-xl h-12 overflow-hidden flex items-center px-4 relative">
                       {/* Audio Waveform Graphic */}
                       <svg className="w-full h-8 text-[#A0AEC0] opacity-80" viewBox="0 0 400 40" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0 20 H5 M5 20 V12 H8 V28 H11 V20 H16 V5 H19 V35 H22 V20 H28 V15 H31 V25 H34 V20 H40 V10 H43 V30 H46 V20 H52 V8 H55 V32 H58 V20 H64 V18 H67 V22 H70 V20 H75 V14 H78 V26 H81 V20 H86 V4 H89 V36 H92 V20 H98 V16 H101 V24 H104 V20 H110 V12 H113 V28 H116 V20 H122 V8 H125 V32 H128 V20 H134 V18 H137 V22 H140 V20 H145 V5 H148 V35 H151 V20 H157 V15 H160 V25 H163 V20 H169 V10 H172 V30 H175 V20 H181 V8 H184 V32 H187 V20 H193 V18 H196 V22 H199 V20 H205 V14 H208 V26 H211 V20 H216 V4 H219 V36 H222 V20 H228 V16 H231 V24 H234 V20 H240 V12 H243 V28 H246 V20 H252 V8 H255 V32 H258 V20 H264 V18 H267 V22 H270 V20 H275 V5 H278 V35 H281 V20 H287 V15 H290 V25 H293 V20 H299 V10 H302 V30 H305 V20 H311 V8 H314 V32 H317 V20 H323 V18 H326 V22 H329 V20 H335 V14 H338 V26 H341 V20 H346 V4 H349 V36 H352 V20 H358 V16 H361 V24 H364 V20 H370 V12 H373 V28 H376 V20 H382 V8 H385 V32 H388 V20 H394 V18 H397 V22 H400 V20" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M0 20 H5 M5 20 V12 H8 V28 H11 V20 H16 V5 H19 V35 H22 V20 H28 V15 H31 V25 H34 V20 H40 V10 H43 V30 H46 V20 H52 V8 H55 V32 H58 V20 H64 V18 H67 V22 H70 V20 H75 V14 H78 V26 H81 V20 H86 V4 H89 V36 H92 V20 H98 V16 H101 V24 H104 V20 H110 V12 H113 V28 H116 V20 H122 V8 H125 V32 H128 V20 H134 V18 H137 V22 H140 V20 H145 V5 H148 V35 H151 V20 H157 V15 H160 V25 H163 V20 H169 V10 H172 V30 H175 V20 H181 V8 H184 V32 H187 V20 H193 V18 H196 V22 H199 V20 H205 V14 H208 V26 H211 V20 H216 V4 H219 V36 H222 V20 H228 V16 H231 V24 H234 V20 H240 V12 H243 V28 H246 V20 H252 V8 H255 V32 H258 V20 H264 V18 H267 V22 H270 V20 H275 V5 H278 V35 H281 V20 H287 V15 H290 V25 H293 V20 H299 V10 H302 V30 H305 V20 H311 V8 H314 V32 H317 V20 H323 V18 H326 V22 H329 V20 H335 V14 H338 V26 H341 V20 H346 V4 H349 V36 H352 V20 H358 V16 H361 V24 H364 V20 H370 V12 H373 V28 H376 V20 H382 V8 H385 V32 H388 V20 H394 V18 H397 V22 H400 V20" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </div>
                   </div>
