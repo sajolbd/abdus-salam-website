@@ -6,6 +6,7 @@ import "./globals.css";
 import { Josefin_Sans } from "next/font/google";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
+import BookingModal from "components/BookingModal";
 
 const josefinSans = Josefin_Sans({
   subsets: ["latin"],
@@ -76,6 +77,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
+        <BookingModal />
       </body>
     </html>
   );

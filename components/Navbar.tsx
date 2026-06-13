@@ -38,7 +38,10 @@ export default function Navbar() {
 
         {/* Contact CTA */}
         <div className="hidden md:block">
-          <button className="bg-[#FF5C00] text-white px-6 py-3 rounded-full text-sm font-bold flex items-center gap-1.5 hover:bg-[#FF7324] hover:shadow-[0_0_25px_rgba(255,92,0,0.45)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300">
+          <button 
+            onClick={() => window.dispatchEvent(new CustomEvent("open-booking-modal"))}
+            className="bg-[#FF5C00] text-white px-6 py-3 rounded-full text-sm font-bold flex items-center gap-1.5 hover:bg-[#FF7324] hover:shadow-[0_0_25px_rgba(255,92,0,0.45)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+          >
             Contact us <ArrowUpRight className="w-4 h-4" />
           </button>
         </div>
@@ -67,7 +70,13 @@ export default function Navbar() {
             <Link href="/work" className="text-base font-medium text-gray-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Work</Link>
             <Link href="/services" className="text-base font-medium text-gray-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Services</Link>
             <hr className="border-white/10 my-2" />
-            <button className="bg-[#FF5C00] text-white py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-1.5 hover:bg-[#FF7324]">
+            <button 
+              onClick={() => {
+                setMobileMenuOpen(false);
+                window.dispatchEvent(new CustomEvent("open-booking-modal"));
+              }}
+              className="bg-[#FF5C00] text-white py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-1.5 hover:bg-[#FF7324] w-full"
+            >
               Contact us <ArrowUpRight className="w-4 h-4" />
             </button>
           </motion.div>
