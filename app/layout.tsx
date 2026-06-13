@@ -7,6 +7,8 @@ import { Josefin_Sans } from "next/font/google";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import BookingModal from "components/BookingModal";
+import Breadcrumbs from "components/Breadcrumbs";
+
 
 const josefinSans = Josefin_Sans({
   subsets: ["latin"],
@@ -15,22 +17,21 @@ const josefinSans = Josefin_Sans({
 });
 
 const siteUrl = "https://abdus-salam-editor.vercel.app/";
-const ogImageUrl = `${siteUrl}/og-image.png`;
+const ogImageUrl = `${siteUrl}/opengraph-image.png`;
 
 /* ---------------- METADATA ---------------- */
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "AbdusSalam",
-  description: "AbdusSalam Website",
+  title: "AbdusSalam | Professional Video Editor",
+  description: "Professional video editing services. Transforming raw footage into cinematic masterpieces for brands, creators, and advertising campaigns.",
   icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.png",
-    apple: "/apple-icon.png",
+    icon: "/icon.ico",
+    shortcut: "/icon.ico",
   },
   openGraph: {
-    title: "AbdusSalam",
-    description: "AbdusSalam Website",
+    title: "AbdusSalam | Professional Video Editor",
+    description: "Professional video editing services. Transforming raw footage into cinematic masterpieces for brands, creators, and advertising campaigns.",
     url: siteUrl,
     siteName: "AbdusSalam",
     locale: "en_US",
@@ -40,14 +41,14 @@ export const metadata: Metadata = {
         url: ogImageUrl,
         width: 1200,
         height: 630,
-        alt: "AbdusSalam Logo",
+        alt: "AbdusSalam Video Editor Portfolio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AbdusSalam",
-    description: "AbdusSalam Website",
+    title: "AbdusSalam | Professional Video Editor",
+    description: "Professional video editing services. Transforming raw footage into cinematic masterpieces for brands, creators, and advertising campaigns.",
     images: [ogImageUrl],
   },
 };
@@ -61,7 +62,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={josefinSans.variable}>
-      <body className="bg-[#0C0C0E] min-h-screen">
+      <body className="bg-[#0C0C0E] min-h-screen overflow-x-hidden">
         {/* NoScript Fallback */}
         <noscript>
           <style>
@@ -75,6 +76,7 @@ export default function RootLayout({
         </noscript>
 
         <Navbar />
+        <Breadcrumbs />
         {children}
         <Footer />
         <BookingModal />

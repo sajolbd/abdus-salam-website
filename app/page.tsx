@@ -5,6 +5,7 @@ import FeaturedWork from "../components/FeaturedWork";
 import Services from "../components/Services";
 import ProcessSection from "../components/ProcessSection";
 import Testimonials from "../components/Testimonials";
+import PricingSection from "components/PricingSection";
 
 export default function Home() {
   return (
@@ -15,8 +16,10 @@ export default function Home() {
       <FeaturedWork />
       <Services />
       <ProcessSection />
+      <PricingSection />
       <Testimonials />
     </div>
   );
 }
+
 

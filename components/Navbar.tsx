@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import { usePathname } from "next/navigation";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -13,9 +14,32 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <div className={`${plusJakarta.className} absolute top-0 left-0 w-full z-50`}>
+    <div
+      className={`${plusJakarta.className} fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        isHome
+          ? scrolled
+            ? "bg-[#0C0C0E]/80 backdrop-blur-md border-b border-white/5 shadow-lg"
+            : "bg-transparent border-transparent"
+          : "bg-[#0C0C0E]/80 backdrop-blur-md border-b border-white/5"
+      }`}
+    >
       <header className="relative w-full max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
@@ -30,10 +54,38 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8 bg-white/5 border border-white/10 px-6 py-2.5 rounded-full backdrop-blur-md">
-          <Link href="/" className="text-sm font-semibold text-[#FF5C00] transition-colors">Home</Link>
-          <Link href="/about-us" className="text-sm font-medium text-gray-400 hover:text-white transition-colors">About us</Link>
-          <Link href="/work" className="text-sm font-medium text-gray-400 hover:text-white transition-colors">Work</Link>
-          <Link href="/services" className="text-sm font-medium text-gray-400 hover:text-white transition-colors">Services</Link>
+          <Link
+            href="/"
+            className={`text-sm transition-colors duration-200 ${
+              pathname === "/" ? "font-semibold text-[#FF5C00]" : "font-medium text-gray-400 hover:text-white"
+            }`}
+          >
+            Home
+          </Link>
+          <Link
+            href="/about-us"
+            className={`text-sm transition-colors duration-200 ${
+              pathname === "/about-us" ? "font-semibold text-[#FF5C00]" : "font-medium text-gray-400 hover:text-white"
+            }`}
+          >
+            About us
+          </Link>
+          <Link
+            href="/work"
+            className={`text-sm transition-colors duration-200 ${
+              pathname === "/work" ? "font-semibold text-[#FF5C00]" : "font-medium text-gray-400 hover:text-white"
+            }`}
+          >
+            Work
+          </Link>
+          <Link
+            href="/services"
+            className={`text-sm transition-colors duration-200 ${
+              pathname === "/services" ? "font-semibold text-[#FF5C00]" : "font-medium text-gray-400 hover:text-white"
+            }`}
+          >
+            Services
+          </Link>
         </nav>
 
         {/* Contact CTA */}
@@ -65,10 +117,42 @@ export default function Navbar() {
             exit={{ opacity: 0, y: -20 }}
             className="absolute top-24 left-0 right-0 mx-6 p-6 bg-[#121215] border border-white/10 rounded-2xl flex flex-col gap-4 z-40 md:hidden shadow-2xl"
           >
-            <Link href="/" className="text-base font-semibold text-[#FF5C00]" onClick={() => setMobileMenuOpen(false)}>Home</Link>
-            <Link href="/about-us" className="text-base font-medium text-gray-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>About us</Link>
-            <Link href="/work" className="text-base font-medium text-gray-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Work</Link>
-            <Link href="/services" className="text-base font-medium text-gray-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Services</Link>
+            <Link
+              href="/"
+              className={`text-base transition-colors duration-200 ${
+                pathname === "/" ? "font-semibold text-[#FF5C00]" : "font-medium text-gray-300 hover:text-white"
+              }`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Home
+            </Link>
+            <Link
+              href="/about-us"
+              className={`text-base transition-colors duration-200 ${
+                pathname === "/about-us" ? "font-semibold text-[#FF5C00]" : "font-medium text-gray-300 hover:text-white"
+              }`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              About us
+            </Link>
+            <Link
+              href="/work"
+              className={`text-base transition-colors duration-200 ${
+                pathname === "/work" ? "font-semibold text-[#FF5C00]" : "font-medium text-gray-300 hover:text-white"
+              }`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Work
+            </Link>
+            <Link
+              href="/services"
+              className={`text-base transition-colors duration-200 ${
+                pathname === "/services" ? "font-semibold text-[#FF5C00]" : "font-medium text-gray-300 hover:text-white"
+              }`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Services
+            </Link>
             <hr className="border-white/10 my-2" />
             <button 
               onClick={() => {
