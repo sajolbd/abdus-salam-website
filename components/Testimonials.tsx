@@ -4,45 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
-const testimonials = [
-  {
-    id: 1,
-    name: "Sarah Johnson",
-    role: "Creative Director",
-    company: "Nike",
-    image: "/images/testimonials/client-1.png",
-    rating: 5,
-    text: "Working with this team transformed our brand campaign. Their attention to detail and creative vision exceeded all expectations. Every frame was perfection."
-  },
-  {
-    id: 2,
-    name: "David Chen",
-    role: "Lead Producer",
-    company: "Dope Motion",
-    image: "/images/testimonials/client-2.png",
-    rating: 5,
-    text: "Their editing style is incredibly dynamic. They know exactly how to hook the audience from the first second and maintain high retention throughout the video."
-  },
-  {
-    id: 3,
-    name: "Emily Rodriguez",
-    role: "Marketing Head",
-    company: "Adidas",
-    image: "/images/testimonials/client-3.png",
-    rating: 5,
-    text: "Absolute professionals. The turnaround times were fast, communication was clear, and the visual effects they added made our commercial campaigns stand out."
-  },
-  {
-    id: 4,
-    name: "Sophia Martinez",
-    role: "Content Creator",
-    company: "YouTube",
-    image: "/images/testimonials/client-4.png",
-    rating: 5,
-    text: "I've worked with many editors, but none match the level of storytelling and sound design that they bring to every video. Highly recommended for any serious creator!"
-  }
-];
+import testimonials from "../data/testimonials.json";
 
 export default function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -150,7 +112,7 @@ export default function Testimonials() {
                         {current.name}
                       </h4>
                       <p className="text-gray-400 text-xs sm:text-sm mt-0.5 font-medium">
-                        {current.role}, <span className="text-[#FF5C00]">{current.company}</span>
+                        {current.role}, <span className="text-[#FF5C00]">{current.subscriber}</span>
                       </p>
                     </div>
                   </motion.div>
