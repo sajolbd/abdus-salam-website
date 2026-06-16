@@ -16,24 +16,24 @@ const josefinSans = Josefin_Sans({
   variable: "--font-josefin-sans",
 });
 
-const siteUrl = "https://abdus-salam-editor.vercel.app/";
+const siteUrl = "https://jihad-hasan-editor.vercel.app/";
 const ogImageUrl = `${siteUrl}/opengraph-image.png`;
 
 /* ---------------- METADATA ---------------- */
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "AbdusSalam | Professional Video Editor",
+  title: "JihadHasan | Professional Video Editor",
   description: "Professional video editing services. Transforming raw footage into cinematic masterpieces for brands, creators, and advertising campaigns.",
   icons: {
     icon: "/icon.ico",
     shortcut: "/icon.ico",
   },
   openGraph: {
-    title: "AbdusSalam | Professional Video Editor",
+    title: "JihadHasan | Professional Video Editor",
     description: "Professional video editing services. Transforming raw footage into cinematic masterpieces for brands, creators, and advertising campaigns.",
     url: siteUrl,
-    siteName: "AbdusSalam",
+    siteName: "JihadHasan",
     locale: "en_US",
     type: "website",
     images: [
@@ -41,13 +41,13 @@ export const metadata: Metadata = {
         url: ogImageUrl,
         width: 1200,
         height: 630,
-        alt: "AbdusSalam Video Editor Portfolio",
+        alt: "JihadHasan Video Editor Portfolio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "AbdusSalam | Professional Video Editor",
+    title: "JihadHasan | Professional Video Editor",
     description: "Professional video editing services. Transforming raw footage into cinematic masterpieces for brands, creators, and advertising campaigns.",
     images: [ogImageUrl],
   },

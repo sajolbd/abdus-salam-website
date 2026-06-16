@@ -91,7 +91,8 @@ const GlowingCardWave = () => (
 const tabs = [
   { id: "short", label: "Short Form" },
   { id: "long", label: "Long Form" },
-  { id: "ads", label: "Ads & VSL" },
+  { id: "promotional", label: "Promotional Video" },
+  { id: "podcast", label: "Podcast" },
 ];
 
 export default function PricingSection() {
@@ -107,37 +108,42 @@ export default function PricingSection() {
     string,
     {
       standard: { price: string; description: string; features: string[] };
-      premium: { price: string; description: string; features: string[] };
+      premium?: { price: string; description: string; features: string[] };
       custom: { description: string; features: string[] };
     }
   > = {
     short: {
       standard: {
-        price: "$499",
-        description: "Perfect for simple edits and quick turnarounds",
+        price: "$10",
+        description: "Shorts Edit Package",
         features: [
-          "Up to 3 minutes of content",
-          "Basic color correction",
-          "Sound mixing & cleanup",
-          "2 rounds of revisions",
+          "Basic cuts/trimming",
+          "Background music (BGM)",
+          "Simple sound effects (whoosh, pop, ding etc)",
+          "Basic text animations (titles,captions/subtitles)",
+          "Auto-captions with stylized design",
+          "Simple transitions (cut, fade, zoom)",
+          "Color correction (basic)",
+          "Aspect ratio adjustment (9:16 vertical format)",
           "3-5 day delivery",
-          "HD export (1080p)",
+          "1-2 revisions",
         ],
       },
       premium: {
-        price: "$2,999",
-        description: "Complete production for high-end campaigns",
+        price: "$25",
+        description: "Shorts Edit Package",
         features: [
-          "Unlimited content length",
-          "Cinematic color grading",
-          "Custom motion graphics",
-          "Professional sound design",
-          "VFX & compositing",
-          "Unlimited revisions",
-          "Priority support",
-          "7-10 day delivery",
-          "4K & 8K export",
-          "All formats & versions",
+          "Advanced/dynamic text animations (kinetic typography)",
+          "Multiple custom transitions (zoom blast, glitch, slide etc)",
+          "Professional color grading",
+          "Stock footage/B-roll integration",
+          "Auto-captions with stylized design (karaoke-style highlight)",
+          "Sound design (layered SFX, audio ducking)",
+          "Motion graphics elements (lower thirds, callouts, emojis/stickers animation)",
+          "Thumbnail design",
+          "Hook optimization",
+          "2-3 revisions",
+          "Faster delivery time",
         ],
       },
       custom: {
@@ -191,31 +197,40 @@ export default function PricingSection() {
         ],
       },
     },
-    ads: {
+    promotional: {
       standard: {
-        price: "$699",
-        description: "High-converting social ads for businesses",
+        price: "$20",
+        description: "Basic Promo Edit",
         features: [
-          "1 high-converting video ad (up to 60s)",
-          "Standard scroll-stopper hooks",
-          "Visual overlay text & caption animations",
-          "Background music license",
-          "2 rounds of revisions",
-          "3-4 day delivery",
+          "Footage trimming and sequencing",
+          "Background music (BGM)",
+          "Basic sound effects",
+          "Text overlays (product name, offer, CTA)",
+          "Simple transitions",
+          "Basic color correction",
+          "Logo placement (static)",
+          "Aspect ratio formatting (square/vertical/horizontal)",
+          "1-2 revisions",
         ],
       },
       premium: {
-        price: "$3,499",
-        description: "A/B test advertising arrays for agencies",
+        price: "$35",
+        description: "Premium Promo Edit",
         features: [
-          "5 video variations (A/B testing hooks)",
-          "High-converting sales script polishing",
-          "Premium motion graphics & CTA design",
-          "Custom voiceover integration & mixing",
-          "Premium visual effects & styling",
-          "Unlimited revisions",
-          "Fast 48-hour delivery option",
-          "Meta/TikTok ad sizing variations",
+          "Professional pacing for high conversion",
+          "Dynamic text animations with brand fonts/colors",
+          "Advanced transitions (zoom, slide, glitch effects)",
+          "Sound design (SFX layering, audio mixing/ducking)",
+          "Professional color grading",
+          "Animated logo intro/outro",
+          "Motion graphics (highlight boxes, arrows, price tags, callouts)",
+          "Stock footage/B-roll integration if needed",
+          "Subtitle/caption styling",
+          "Strong hook (first 3 sec) and CTA optimization",
+          "Thumbnail design",
+          "Multiple aspect ratio exports (for different platforms)",
+          "2-3 revisions",
+          "Priority delivery",
         ],
       },
       custom: {
@@ -229,9 +244,44 @@ export default function PricingSection() {
         ],
       },
     },
+    podcast: {
+      standard: {
+        price: "$50",
+        description: "Advanced Podcast Edit",
+        features: [
+          "Multi-camera switching/angles (based on speaker)",
+          "Advanced audio mixing and mastering",
+          "Dynamic subtitles/captions (styled, animated)",
+          "B-roll/stock footage insertion for engagement",
+          "Highlight clips/shorts creation from main episode (1-2 clips)",
+          "Lower thirds with guest info (animated)",
+          "Motion graphics (waveforms, transitions, callouts)",
+          "Background music throughout (subtle, mood-based)",
+          "Color grading/correction",
+          "Thumbnail design",
+          "Chapter markers/timestamps",
+          "2-3 revisions",
+          "Priority delivery",
+        ],
+      },
+      custom: {
+        description: "Custom Podcast Production & Editing Package",
+        features: [
+          "Podcast editing tailored to your format",
+          "Video and audio optimization",
+          "Snippets/Shorts created from your episodes",
+          "Sound branding, intros, and outros",
+          "Final delivery in podcast-platform ready formats",
+        ],
+      },
+    },
   };
 
   const currentPlans = pricingData[activeTab];
+  const defaultHighlightedCardIndex: number = currentPlans.premium ? 1 : 0;
+  const isStandardActive = hoveredCard !== null ? hoveredCard === 0 : defaultHighlightedCardIndex === 0;
+  const isPremiumActive = hoveredCard !== null ? hoveredCard === 1 : defaultHighlightedCardIndex === 1;
+  const isCustomActive = hoveredCard !== null ? hoveredCard === 2 : defaultHighlightedCardIndex === 2;
 
   return (
     <section className="relative w-full bg-[#0C0C0E] py-20 lg:py-32 px-6 sm:px-12 md:px-16 overflow-hidden select-none">
@@ -276,20 +326,20 @@ export default function PricingSection() {
         </div>
 
         {/* Pricing Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full items-stretch pt-4">
+        <div className={`grid grid-cols-1 ${currentPlans.premium ? "md:grid-cols-3" : "md:grid-cols-2 max-w-4xl mx-auto"} gap-8 w-full items-stretch pt-4`}>
           
           {/* Card 1: Standard Plan */}
           <div
             onMouseEnter={() => setHoveredCard(0)}
             onMouseLeave={() => setHoveredCard(null)}
             className={`relative flex flex-col justify-between p-8 md:p-10 rounded-[28px] border transition-all duration-500 overflow-hidden min-h-[550px] ${
-              (hoveredCard !== null ? hoveredCard === 0 : false)
+              isStandardActive
                 ? "bg-[#0F0F12] border-white/10 text-white shadow-[0_0_40px_rgba(255,92,0,0.18)] scale-[1.02] z-20"
                 : "bg-white border-neutral-200 text-neutral-900 scale-100 z-10"
             }`}
           >
             {/* Conditional Wave Background for Active Card */}
-            {(hoveredCard !== null ? hoveredCard === 0 : false) && <GlowingCardWave />}
+            {isStandardActive && <GlowingCardWave />}
 
             <div className="relative z-10 flex flex-col gap-6">
               {/* Title Section */}
@@ -298,11 +348,11 @@ export default function PricingSection() {
                 <div className="flex items-baseline gap-1.5 mt-2">
                   <span className="text-4xl font-extrabold">{currentPlans.standard.price}</span>
                   <span className={`text-sm ${
-                    (hoveredCard !== null ? hoveredCard === 0 : false) ? "text-neutral-400" : "text-neutral-500"
+                    isStandardActive ? "text-neutral-400" : "text-neutral-500"
                   }`}>per project</span>
                 </div>
                 <p className={`text-sm font-light mt-3 leading-relaxed ${
-                  (hoveredCard !== null ? hoveredCard === 0 : false) ? "text-neutral-300" : "text-neutral-600"
+                  isStandardActive ? "text-neutral-300" : "text-neutral-600"
                 }`}>
                   {currentPlans.standard.description}
                 </p>
@@ -310,16 +360,16 @@ export default function PricingSection() {
 
               {/* Divider */}
               <hr className={`w-full ${
-                (hoveredCard !== null ? hoveredCard === 0 : false) ? "border-white/10" : "border-neutral-200"
+                isStandardActive ? "border-white/10" : "border-neutral-200"
               }`} />
 
               {/* Features List */}
               <div className="flex flex-col gap-4 text-left">
                 {currentPlans.standard.features.map((feature, idx) => (
                   <div key={idx} className="flex items-center gap-3">
-                    <CheckIcon active={hoveredCard !== null ? hoveredCard === 0 : false} />
+                    <CheckIcon active={isStandardActive} />
                     <span className={`text-sm font-light leading-none ${
-                      (hoveredCard !== null ? hoveredCard === 0 : false) ? "text-gray-100" : "text-neutral-800"
+                      isStandardActive ? "text-gray-100" : "text-neutral-800"
                     }`}>
                       {feature}
                     </span>
@@ -333,7 +383,7 @@ export default function PricingSection() {
               <button
                 onClick={triggerBooking}
                 className={`w-full py-3 px-6 rounded-full text-sm font-bold flex items-center justify-center gap-1.5 transition-all duration-300 ${
-                  (hoveredCard !== null ? hoveredCard === 0 : false)
+                  isStandardActive
                     ? "bg-[#FF5C00] text-white hover:bg-[#FF7324] hover:shadow-[0_0_20px_rgba(255,92,0,0.4)] border border-transparent hover:scale-[1.02] active:scale-[0.98]"
                     : "border border-[#FF5C00] text-[#FF5C00] bg-transparent hover:bg-[#FF5C00] hover:text-white hover:scale-[1.02] active:scale-[0.98]"
                 }`}
@@ -344,97 +394,101 @@ export default function PricingSection() {
           </div>
 
           {/* Card 2: Premium Plan (Default Highlighted) */}
-          <div
-            onMouseEnter={() => setHoveredCard(1)}
-            onMouseLeave={() => setHoveredCard(null)}
-            className={`relative flex flex-col justify-between p-8 md:p-10 rounded-[28px] border transition-all duration-500 overflow-hidden min-h-[550px] ${
-              hoveredCard !== null ? (hoveredCard === 1 ? "bg-[#0F0F12] border-white/10 text-white shadow-[0_0_40px_rgba(255,92,0,0.18)] scale-[1.02] z-20" : "bg-white border-neutral-200 text-neutral-900 scale-100 z-10") : "bg-[#0F0F12] border-white/10 text-white shadow-[0_0_40px_rgba(255,92,0,0.18)] scale-[1.02] z-20"
-            }`}
-          >
-            {/* Wave Background logic: active when hoveredCard is null (default) OR hoveredCard === 1 */}
-            {(hoveredCard === null || hoveredCard === 1) && <GlowingCardWave />}
+          {currentPlans.premium && (
+            <div
+              onMouseEnter={() => setHoveredCard(1)}
+              onMouseLeave={() => setHoveredCard(null)}
+              className={`relative flex flex-col justify-between p-8 md:p-10 rounded-[28px] border transition-all duration-500 overflow-hidden min-h-[550px] ${
+                isPremiumActive
+                  ? "bg-[#0F0F12] border-white/10 text-white shadow-[0_0_40px_rgba(255,92,0,0.18)] scale-[1.02] z-20"
+                  : "bg-white border-neutral-200 text-neutral-900 scale-100 z-10"
+              }`}
+            >
+              {/* Wave Background logic: active when hoveredCard is null (default) OR hoveredCard === 1 */}
+              {isPremiumActive && <GlowingCardWave />}
 
-            <div className="relative z-10 flex flex-col gap-6">
-              {/* Title Section */}
-              <div className="flex flex-col gap-1 text-left">
-                <div className="flex items-center justify-between w-full">
-                  <h3 className="text-3xl font-extrabold tracking-tight">Premium</h3>
-                  <span className="bg-[#FF5C00] text-white text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
-                    Most popular
-                  </span>
-                </div>
-                <div className="flex items-baseline gap-1.5 mt-2">
-                  <span className="text-4xl font-extrabold">{currentPlans.premium.price}</span>
-                  <span className={`text-sm ${
-                    (hoveredCard === null || hoveredCard === 1) ? "text-neutral-400" : "text-neutral-500"
-                  }`}>per project</span>
-                </div>
-                <p className={`text-sm font-light mt-3 leading-relaxed ${
-                  (hoveredCard === null || hoveredCard === 1) ? "text-neutral-300" : "text-neutral-600"
-                }`}>
-                  {currentPlans.premium.description}
-                </p>
-              </div>
-
-              {/* Divider */}
-              <hr className={`w-full ${
-                (hoveredCard === null || hoveredCard === 1) ? "border-white/10" : "border-neutral-200"
-              }`} />
-
-              {/* Features List */}
-              <div className="flex flex-col gap-4 text-left">
-                {currentPlans.premium.features.map((feature, idx) => (
-                  <div key={idx} className="flex items-center gap-3">
-                    <CheckIcon active={hoveredCard === null || hoveredCard === 1} />
-                    <span className={`text-sm font-light leading-none ${
-                      (hoveredCard === null || hoveredCard === 1) ? "text-gray-100" : "text-neutral-800"
-                    }`}>
-                      {feature}
+              <div className="relative z-10 flex flex-col gap-6">
+                {/* Title Section */}
+                <div className="flex flex-col gap-1 text-left">
+                  <div className="flex items-center justify-between w-full">
+                    <h3 className="text-3xl font-extrabold tracking-tight">Premium</h3>
+                    <span className="bg-[#FF5C00] text-white text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
+                      Most popular
                     </span>
                   </div>
-                ))}
+                  <div className="flex items-baseline gap-1.5 mt-2">
+                    <span className="text-4xl font-extrabold">{currentPlans.premium.price}</span>
+                    <span className={`text-sm ${
+                      isPremiumActive ? "text-neutral-400" : "text-neutral-500"
+                    }`}>per project</span>
+                  </div>
+                  <p className={`text-sm font-light mt-3 leading-relaxed ${
+                    isPremiumActive ? "text-neutral-300" : "text-neutral-600"
+                  }`}>
+                    {currentPlans.premium.description}
+                  </p>
+                </div>
+
+                {/* Divider */}
+                <hr className={`w-full ${
+                  isPremiumActive ? "border-white/10" : "border-neutral-200"
+                }`} />
+
+                {/* Features List */}
+                <div className="flex flex-col gap-4 text-left">
+                  {currentPlans.premium.features.map((feature, idx) => (
+                    <div key={idx} className="flex items-center gap-3">
+                      <CheckIcon active={isPremiumActive} />
+                      <span className={`text-sm font-light leading-none ${
+                        isPremiumActive ? "text-gray-100" : "text-neutral-800"
+                      }`}>
+                        {feature}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Button */}
+              <div className="relative z-10 pt-8">
+                <button
+                  onClick={triggerBooking}
+                  className={`w-full py-3 px-6 rounded-full text-sm font-bold flex items-center justify-center gap-1.5 transition-all duration-300 ${
+                    isPremiumActive
+                      ? "bg-[#FF5C00] text-white hover:bg-[#FF7324] hover:shadow-[0_0_20px_rgba(255,92,0,0.4)] border border-transparent hover:scale-[1.02] active:scale-[0.98]"
+                      : "border border-[#FF5C00] text-[#FF5C00] bg-transparent hover:bg-[#FF5C00] hover:text-white hover:scale-[1.02] active:scale-[0.98]"
+                  }`}
+                >
+                  BOOK A CALL <ArrowUpRight className="w-4 h-4" />
+                </button>
               </div>
             </div>
-
-            {/* Button */}
-            <div className="relative z-10 pt-8">
-              <button
-                onClick={triggerBooking}
-                className={`w-full py-3 px-6 rounded-full text-sm font-bold flex items-center justify-center gap-1.5 transition-all duration-300 ${
-                  (hoveredCard === null || hoveredCard === 1)
-                    ? "bg-[#FF5C00] text-white hover:bg-[#FF7324] hover:shadow-[0_0_20px_rgba(255,92,0,0.4)] border border-transparent hover:scale-[1.02] active:scale-[0.98]"
-                    : "border border-[#FF5C00] text-[#FF5C00] bg-transparent hover:bg-[#FF5C00] hover:text-white hover:scale-[1.02] active:scale-[0.98]"
-                }`}
-              >
-                BOOK A CALL <ArrowUpRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
+          )}
 
           {/* Card 3: Custom Plan */}
           <div
             onMouseEnter={() => setHoveredCard(2)}
             onMouseLeave={() => setHoveredCard(null)}
             className={`relative flex flex-col justify-between p-8 md:p-10 rounded-[28px] border transition-all duration-500 overflow-hidden min-h-[550px] ${
-              (hoveredCard !== null ? hoveredCard === 2 : false)
+              isCustomActive
                 ? "bg-[#0F0F12] border-white/10 text-white shadow-[0_0_40px_rgba(255,92,0,0.18)] scale-[1.02] z-20"
                 : "bg-white border-neutral-200 text-neutral-900 scale-100 z-10"
             }`}
           >
             {/* Conditional Wave Background for Active Card */}
-            {(hoveredCard !== null ? hoveredCard === 2 : false) && <GlowingCardWave />}
+            {isCustomActive && <GlowingCardWave />}
 
             <div className="relative z-10 flex flex-col gap-6">
               {/* Title Section */}
               <div className="flex flex-col gap-1 text-left">
                 <h3 className="text-3xl font-extrabold tracking-tight">Custom</h3>
                 <p className={`text-sm font-light mt-3 leading-relaxed ${
-                  (hoveredCard !== null ? hoveredCard === 2 : false) ? "text-neutral-300" : "text-neutral-600"
+                  isCustomActive ? "text-neutral-300" : "text-neutral-600"
                 }`}>
                   {currentPlans.custom.description}
                 </p>
                 <p className={`text-xs mt-1 leading-relaxed ${
-                  (hoveredCard !== null ? hoveredCard === 2 : false) ? "text-neutral-400" : "text-neutral-500"
+                  isCustomActive ? "text-neutral-400" : "text-neutral-500"
                 }`}>
                   No fixed plans. No unnecessary extras. Just the exact editing solution your project needs.
                 </p>
@@ -442,16 +496,16 @@ export default function PricingSection() {
 
               {/* Divider */}
               <hr className={`w-full ${
-                (hoveredCard !== null ? hoveredCard === 2 : false) ? "border-white/10" : "border-neutral-200"
+                isCustomActive ? "border-white/10" : "border-neutral-200"
               }`} />
 
               {/* Features List */}
               <div className="flex flex-col gap-4 text-left">
                 {currentPlans.custom.features.map((feature, idx) => (
                   <div key={idx} className="flex items-center gap-3">
-                    <CheckIcon active={hoveredCard !== null ? hoveredCard === 2 : false} />
+                    <CheckIcon active={isCustomActive} />
                     <span className={`text-sm font-light leading-none ${
-                      (hoveredCard !== null ? hoveredCard === 2 : false) ? "text-gray-100" : "text-neutral-800"
+                      isCustomActive ? "text-gray-100" : "text-neutral-800"
                     }`}>
                       {feature}
                     </span>
@@ -465,7 +519,7 @@ export default function PricingSection() {
               <button
                 onClick={triggerBooking}
                 className={`w-full py-3 px-6 rounded-full text-sm font-bold flex items-center justify-center gap-1.5 transition-all duration-300 ${
-                  (hoveredCard !== null ? hoveredCard === 2 : false)
+                  isCustomActive
                     ? "bg-[#FF5C00] text-white hover:bg-[#FF7324] hover:shadow-[0_0_20px_rgba(255,92,0,0.4)] border border-transparent hover:scale-[1.02] active:scale-[0.98]"
                     : "border border-[#FF5C00] text-[#FF5C00] bg-transparent hover:bg-[#FF5C00] hover:text-white hover:scale-[1.02] active:scale-[0.98]"
                 }`}

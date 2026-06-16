@@ -1,6 +1,7 @@
 import HeroSection from "../components/HeroSection";
 import MarqueeSection from "../components/MarqueeSection";
 import AboutSection from "../components/AboutSection";
+import WhyWorkWithMe from "../components/WhyWorkWithMe";
 import FeaturedWork from "../components/FeaturedWork";
 import Services from "../components/Services";
 import ProcessSection from "../components/ProcessSection";
@@ -13,6 +14,7 @@ export default function Home() {
       <HeroSection />
       <MarqueeSection />
       <AboutSection />
+      <WhyWorkWithMe />
       <FeaturedWork />
       <Services />
       <ProcessSection />

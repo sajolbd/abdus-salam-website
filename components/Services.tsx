@@ -19,14 +19,14 @@ const servicesList = [
   },
   {
     id: 3,
-    title: "Motion Graphics",
-    description: "Elevate your brand with stunning animations, dynamic text, and visual effects that make your content stand out from the competition.",
+    title: "Social Media Videos",
+    description: "Editing engaging social media videos with smooth transitions, trending effects, and eye-catching visuals that boost reach and engagement.",
     icon: Sparkles,
   },
   {
     id: 4,
-    title: "Commercial Ads",
-    description: "Produce high-converting advertisements that communicate your message clearly and inspire action from your target audience.",
+    title: "Promotional Videos",
+    description: "Creating compelling promotional videos that highlight your product or brand, crafted with skill and clarity to leave a lasting impression.",
     icon: TrendingUp,
   },
 ];

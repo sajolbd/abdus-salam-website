@@ -25,8 +25,8 @@ export default function AboutSection() {
         >
           <div className="relative w-full aspect-[4/5] sm:aspect-[4/5] md:max-w-md lg:max-w-none rounded-[32px] overflow-hidden border border-gray-800/60 shadow-[0_12px_40px_rgba(0,0,0,0.5)] group">
             <Image
-              src="/images/our-process/who-we-are/img1.png"
-              alt="Video Editor Desk Setup"
+              src="/images/about/jihad-hasan.png"
+              alt="Jihad Hasan Portrait"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
               className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -52,23 +52,22 @@ export default function AboutSection() {
           </h2>
 
           {/* Paragraph Description */}
-          <p className="text-gray-400 text-sm sm:text-base md:text-lg leading-relaxed font-light">
-            With over 10 years of experience in the film and advertising industry,
-            we've crafted thousands of stories that resonate, engage, and inspire action.
-            Our approach combines technical mastery with creative intuition. We don't just
-            edit videos—we sculpt emotions, build narratives, and create experiences
-            that leave lasting impressions. From indie films to global brand campaigns,
-            our work has been featured across major platforms and awarded by industry
-            leaders. We bring the same passion and precision to every project, no matter the scale.
-          </p>
+          <div className="flex flex-col gap-4 text-gray-400 text-sm sm:text-base md:text-lg leading-relaxed font-light">
+            <p>
+              I'm Jihad Hasan, a professional Video Editor with 6+ years of experience creating content that helps brands and creators stand out in a crowded digital world. Having worked with international clients across the UK and Germany, as well as top-tier Bangladeshi brands like bKash, Clear Men, and leading creators, I understand what it takes to make a video stand out in a crowded feed.
+            </p>
+            <p>
+              My goal is simple: to turn your raw footage and ideas into professional, engaging videos that connect with your audience and elevate your brand. If you want content that stands out and delivers results, let's work together.
+            </p>
+          </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-3 gap-6 sm:gap-8 pt-8 border-t border-gray-800/60 mt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 pt-8 border-t border-gray-800/60 mt-4">
 
             {/* Stat 1: Projects Delivered */}
             <div className="flex flex-col gap-1 group">
               <span className="text-white text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight transition-colors duration-300 group-hover:text-[#FF5C00]">
-                <CountUp end={500} duration={2.5} enableScrollSpy scrollSpyOnce suffix="+" />
+                <CountUp end={350} duration={2.5} enableScrollSpy scrollSpyOnce suffix="+" />
               </span>
               <span className="text-gray-400 text-[10px] sm:text-xs md:text-sm font-medium tracking-wide uppercase">
                 Projects Delivered
@@ -78,20 +77,20 @@ export default function AboutSection() {
             {/* Stat 2: Global Clients */}
             <div className="flex flex-col gap-1 group">
               <span className="text-white text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight transition-colors duration-300 group-hover:text-[#FF5C00]">
-                <CountUp end={50} duration={2.5} enableScrollSpy scrollSpyOnce suffix="+" />
+                <CountUp end={40} duration={2.5} enableScrollSpy scrollSpyOnce suffix="+" />
               </span>
               <span className="text-gray-400 text-[10px] sm:text-xs md:text-sm font-medium tracking-wide uppercase">
                 Global Clients
               </span>
             </div>
 
-            {/* Stat 3: Industry Awards */}
+            {/* Stat 3: Total Video Views */}
             <div className="flex flex-col gap-1 group">
               <span className="text-white text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight transition-colors duration-300 group-hover:text-[#FF5C00]">
-                <CountUp end={15} duration={2.5} enableScrollSpy scrollSpyOnce />
+                <CountUp end={70000000} duration={2.5} enableScrollSpy scrollSpyOnce suffix="+" />
               </span>
               <span className="text-gray-400 text-[10px] sm:text-xs md:text-sm font-medium tracking-wide uppercase">
-                Industry Awards
+                Total Video Views
               </span>
             </div>
 

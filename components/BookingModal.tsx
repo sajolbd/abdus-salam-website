@@ -9,7 +9,8 @@ import Swal from "sweetalert2";
 const services = [
   "Short Form Videos",
   "Long Form Videos",
-  "Ads & VSL",
+  "Promotional Videos",
+  "Podcasts",
   "Full Video Editing Package"
 ];
 
@@ -153,7 +154,7 @@ export default function BookingModal() {
             <div className="md:col-span-5 bg-black/40 p-8 flex flex-col gap-6 text-left border-r border-gray-800/40">
               <div className="flex flex-col gap-2">
                 <span className="text-xs font-bold text-[#FF5C00] tracking-widest uppercase">
-                  Abdus Salam Agency
+                  Jihad Hasan Agency
                 </span>
                 <h3 className="text-2xl md:text-3xl font-extrabold text-white leading-tight">
                   15-Min Strategy Call
@@ -182,7 +183,7 @@ export default function BookingModal() {
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-white">
                   <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 4C14.07 4 15.93 4.83 17.29 6.17L12.54 10.92C12.38 10.97 12.2 11 12 11C11.45 11 11 10.55 11 10C11 9.8 11.03 9.62 11.08 9.46L6.17 4.55C7.75 3.58 9.8 3 12 3V4Z" fill="currentColor" />
                 </svg>
-                <span className="font-bold text-white tracking-tight text-sm">AbdusSalam</span>
+                <span className="font-bold text-white tracking-tight text-sm">JihadHasan</span>
               </div>
             </div>
 

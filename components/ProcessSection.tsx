@@ -128,7 +128,7 @@ export default function ProcessSection() {
         {/* Section Heading */}
         <div className="flex flex-col gap-3 text-center">
           <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-            Our Process
+            Process Of Working
           </h2>
           <p className="text-gray-400 text-sm md:text-base font-light">
             From concept to completion in four seamless steps

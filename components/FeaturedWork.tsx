@@ -7,93 +7,156 @@ import { motion, AnimatePresence } from "framer-motion";
 const categories = [
   { id: "short-form", label: "Short Form" },
   { id: "long-form", label: "Long Form" },
-  { id: "ads-vsl", label: "Ads & VSL" },
+  { id: "promotional-video", label: "Promotional Video" },
+  { id: "podcast", label: "Podcast" },
 ];
+
+function getYouTubeId(url: string) {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\/shorts\/)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[2].length === 11) ? match[2] : "";
+}
 
 const works = [
   {
     id: 1,
-    title: "AI Tool For Students",
+    title: "Retention Editing Magic",
     category: "short-form",
-    thumbnail: "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=600&auto=format&fit=crop",
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-man-holding-smartphone-and-editing-video-41775-large.mp4",
+    thumbnail: "https://img.youtube.com/vi/jbm0U5dJNyU/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/shorts/jbm0U5dJNyU",
   },
   {
     id: 2,
-    title: "Make Edit 10X Faster",
-    category: "short-form",
-    thumbnail: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=600&auto=format&fit=crop",
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-video-editor-using-a-keyboard-and-mouse-41777-large.mp4",
+    title: "Documentary Visual Flow",
+    category: "long-form",
+    thumbnail: "https://img.youtube.com/vi/DCOVbKvUhx4/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/watch?v=DCOVbKvUhx4",
   },
   {
     id: 3,
-    title: "MrBeast's YouTube Secret",
+    title: "Creative Reels Hook",
     category: "short-form",
-    thumbnail: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop",
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-video-editor-working-on-his-workspace-41778-large.mp4",
+    thumbnail: "https://img.youtube.com/vi/2Mjk2oX0Ie0/hqdefault.jpg",
+    videoUrl: "https://youtube.com/shorts/2Mjk2oX0Ie0",
   },
   {
     id: 4,
-    title: "Nega Aynan Impulse",
-    category: "short-form",
-    thumbnail: "https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=600&auto=format&fit=crop",
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-working-on-video-editing-software-41779-large.mp4",
-  },
-  {
-    id: 5,
-    title: "Cinematic Color Grading",
-    category: "long-form",
-    thumbnail: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=600&auto=format&fit=crop",
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-hands-adjusting-sound-on-an-audio-mixer-41783-large.mp4",
-  },
-  {
-    id: 6,
     title: "Commercial Ads Promo",
-    category: "ads-vsl",
+    category: "promotional-video",
     thumbnail: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=600&auto=format&fit=crop",
     videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-man-holding-smartphone-and-editing-video-41775-large.mp4",
   },
   {
-    id: 1,
-    title: "AI Tool For Students",
-    category: "short-form",
-    thumbnail: "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=600&auto=format&fit=crop",
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-man-holding-smartphone-and-editing-video-41775-large.mp4",
-  },
-  {
-    id: 2,
-    title: "Make Edit 10X Faster",
-    category: "short-form",
-    thumbnail: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=600&auto=format&fit=crop",
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-video-editor-using-a-keyboard-and-mouse-41777-large.mp4",
-  },
-  {
-    id: 3,
-    title: "MrBeast's YouTube Secret",
-    category: "short-form",
-    thumbnail: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop",
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-video-editor-working-on-his-workspace-41778-large.mp4",
-  },
-  {
-    id: 4,
-    title: "Nega Aynan Impulse",
-    category: "short-form",
-    thumbnail: "https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=600&auto=format&fit=crop",
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-working-on-video-editing-software-41779-large.mp4",
-  },
-  {
     id: 5,
-    title: "Cinematic Color Grading",
-    category: "long-form",
-    thumbnail: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=600&auto=format&fit=crop",
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-hands-adjusting-sound-on-an-audio-mixer-41783-large.mp4",
+    title: "Fast-Paced Motion Edit",
+    category: "short-form",
+    thumbnail: "https://img.youtube.com/vi/-lvuoX064qI/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/shorts/-lvuoX064qI",
   },
   {
     id: 6,
+    title: "Cinematic Narrative Breakdown",
+    category: "short-form",
+    thumbnail: "https://img.youtube.com/vi/G9G_czgfgyI/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/watch?v=G9G_czgfgyI",
+  },
+  {
+    id: 7,
+    title: "Creator Chemistry Discussion",
+    category: "podcast",
+    thumbnail: "https://img.youtube.com/vi/z9Z_ksiQx6g/hqdefault.jpg",
+    videoUrl: "https://youtube.com/shorts/z9Z_ksiQx6g",
+  },
+  {
+    id: 8,
+    title: "Visual Storytelling Hook",
+    category: "short-form",
+    thumbnail: "https://img.youtube.com/vi/ZX-HBEB_XbQ/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/shorts/ZX-HBEB_XbQ",
+  },
+  {
+    id: 9,
+    title: "Cinematic Story Breakdown",
+    category: "long-form",
+    thumbnail: "https://img.youtube.com/vi/b-d0wMgGHAw/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/watch?v=b-d0wMgGHAw",
+  },
+  {
+    id: 10,
+    title: "Dynamic Sound Design",
+    category: "short-form",
+    thumbnail: "https://img.youtube.com/vi/WcJD0SwNBkk/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/shorts/WcJD0SwNBkk",
+  },
+  {
+    id: 11,
     title: "Commercial Ads Promo",
-    category: "ads-vsl",
+    category: "promotional-video",
     thumbnail: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=600&auto=format&fit=crop",
     videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-man-holding-smartphone-and-editing-video-41775-large.mp4",
+  },
+  {
+    id: 12,
+    title: "Podcast Studio Insights",
+    category: "podcast",
+    thumbnail: "https://img.youtube.com/vi/Zp6WSVS7X5o/hqdefault.jpg",
+    videoUrl: "https://youtu.be/Zp6WSVS7X5o",
+  },
+  {
+    id: 13,
+    title: "Pro Editing Masterclass",
+    category: "long-form",
+    thumbnail: "https://img.youtube.com/vi/ev7zCJwi0bk/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/watch?v=ev7zCJwi0bk",
+  },
+  {
+    id: 14,
+    title: "High Retention Video Guide",
+    category: "long-form",
+    thumbnail: "https://img.youtube.com/vi/J-QvxJkOuEQ/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/watch?v=J-QvxJkOuEQ",
+  },
+  {
+    id: 15,
+    title: "Storytelling Pace Analysis",
+    category: "long-form",
+    thumbnail: "https://img.youtube.com/vi/Vpk1IkDB29c/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/watch?v=Vpk1IkDB29c",
+  },
+  {
+    id: 16,
+    title: "Long Form Narrative Edit",
+    category: "long-form",
+    thumbnail: "https://img.youtube.com/vi/RL7JGjaLQH0/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/watch?v=RL7JGjaLQH0",
+  },
+  {
+    id: 17,
+    title: "Behind The Mic Secrets",
+    category: "podcast",
+    thumbnail: "https://img.youtube.com/vi/_-Yh_44HnPs/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/watch?v=_-Yh_44HnPs",
+  },
+  {
+    id: 18,
+    title: "Scaling Content Strategy",
+    category: "podcast",
+    thumbnail: "https://img.youtube.com/vi/tsMzpRjMKP0/hqdefault.jpg",
+    videoUrl: "https://youtu.be/tsMzpRjMKP0",
+  },
+  {
+    id: 19,
+    title: "The Future of Podcasting",
+    category: "podcast",
+    thumbnail: "https://img.youtube.com/vi/QMtWA8Kzf6Y/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/watch?v=QMtWA8Kzf6Y",
+  },
+  {
+    id: 20,
+    title: "High Value Guest Secrets",
+    category: "podcast",
+    thumbnail: "https://img.youtube.com/vi/MKz3SSt49Ak/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/watch?v=MKz3SSt49Ak",
   }
 ];
 
@@ -225,14 +288,24 @@ export default function FeaturedWork() {
                       </button>
 
                       {/* Video Player */}
-                      <video
-                        src={work.videoUrl}
-                        className="w-full h-full object-cover"
-                        controls
-                        autoPlay
-                        playsInline
-                        onEnded={() => setActivePlayingId(null)}
-                      />
+                      {work.videoUrl.includes("youtube.com") || work.videoUrl.includes("youtu.be") ? (
+                        <iframe
+                          src={`https://www.youtube.com/embed/${getYouTubeId(work.videoUrl)}?autoplay=1&mute=0`}
+                          className="w-full h-full object-cover"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          title={work.title}
+                        />
+                      ) : (
+                        <video
+                          src={work.videoUrl}
+                          className="w-full h-full object-cover"
+                          controls
+                          autoPlay
+                          playsInline
+                          onEnded={() => setActivePlayingId(null)}
+                        />
+                      )}
                     </motion.div>
                   ) : (
                     <motion.div
@@ -263,7 +336,7 @@ export default function FeaturedWork() {
                           {work.title}
                         </h4>
                         <p className="text-gray-300 text-[10px] sm:text-xs mt-0.5 font-medium tracking-wide uppercase drop-shadow-sm">
-                          {activeCategory.replace("-", " ")}
+                          {activeCategory.replace(/-/g, " ")}
                         </p>
                       </div>
                     </motion.div>
@@ -272,6 +345,12 @@ export default function FeaturedWork() {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Client Loved Tagline */}
+        <div className="flex items-center justify-center gap-2.5 text-center text-gray-400 text-xl  md:text-3xl font-semibold mt-4">
+          <span className="w-3 h-3 rounded-full bg-[#FF5C00] animate-pulse" />
+          <span>Works loved by our clients</span>
         </div>
 
         {/* Bottom Controls: Pagination & Arrows */}

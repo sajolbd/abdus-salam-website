@@ -4,12 +4,25 @@ import React from "react";
 import Image from "next/image";
 
 const brands = [
-    { name: "Acticraft", src: "/images/home/brands/brand-1.png" },
-    { name: "The Arrows", src: "/images/home/brands/brand-2.png" },
+    { name: "Acticraft", src: "/images/home/brands/brand-1.webp" },
+    { name: "The Arrows", src: "/images/home/brands/brand-2.jpg" },
     { name: "Nutrivix", src: "/images/home/brands/brand-3.png" },
-    { name: "Firmum", src: "/images/home/brands/brand-4.png" },
-    { name: "TWEWIN", src: "/images/home/brands/brand-5.png" },
-    { name: "HouseFrame", src: "/images/home/brands/brand-6.png" },
+    { name: "Firmum", src: "/images/home/brands/brand-4.jpeg" },
+    { name: "TWEWIN", src: "/images/home/brands/brand-5.jpg" },
+    { name: "HouseFrame", src: "/images/home/brands/brand-6.jpg" },
+    { name: "HouseFrame", src: "/images/home/brands/brand-7.jpg" },
+    { name: "HouseFrame", src: "/images/home/brands/brand-8.jpg" },
+    { name: "HouseFrame", src: "/images/home/brands/brand-9.jpeg" },
+    { name: "HouseFrame", src: "/images/home/brands/brand-10.jpg" },
+    { name: "HouseFrame", src: "/images/home/brands/brand-11.png" },
+    { name: "HouseFrame", src: "/images/home/brands/brand-12.jpg" },
+    { name: "HouseFrame", src: "/images/home/brands/brand-13.jpg" },
+    { name: "HouseFrame", src: "/images/home/brands/brand-14.png" },
+    { name: "HouseFrame", src: "/images/home/brands/brand-15.png" },
+    { name: "HouseFrame", src: "/images/home/brands/brand-16.jpg" },
+    { name: "HouseFrame", src: "/images/home/brands/brand-17.jpg" },
+    { name: "HouseFrame", src: "/images/home/brands/brand-18.jpg" },
+
 
 ];
 
