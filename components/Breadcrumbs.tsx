@@ -59,20 +59,20 @@ export default function Breadcrumbs() {
   // Dynamic overrides for subpage titles
   const getPageTitle = (seg: string) => {
     const overrides: Record<string, string> = {
-      "about-us": "About Us",
+      "about-us": "About Me",
       "faq": "Frequently Asked Questions",
-      "services": "Our Services",
-      "work": "Our Featured Work",
+      "services": "My Services",
+      "work": "My Featured Work",
     };
     return overrides[seg.toLowerCase()] || seg.replace(/-/g, " ");
   };
 
   const formatSegmentLabel = (str: string) => {
     const overrides: Record<string, string> = {
-      "about-us": "About Us",
+      "about-us": "About Me",
       "faq": "FAQ",
       "services": "Services",
-      "work": "Our Work",
+      "work": "My Work",
     };
     if (overrides[str.toLowerCase()]) {
       return overrides[str.toLowerCase()];

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Play, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -20,21 +20,21 @@ function getYouTubeId(url: string) {
 const works = [
   {
     id: 1,
-    title: "Retention Editing Magic",
+    title: "Instagram Free Subtitles for All Your Reels 💬🍿 (No App Needed!)",
     category: "short-form",
     thumbnail: "https://img.youtube.com/vi/jbm0U5dJNyU/hqdefault.jpg",
     videoUrl: "https://www.youtube.com/shorts/jbm0U5dJNyU",
   },
   {
     id: 2,
-    title: "Documentary Visual Flow",
+    title: "20th February Induction – A Brilliant Start at SIRM Leicester!",
     category: "long-form",
     thumbnail: "https://img.youtube.com/vi/DCOVbKvUhx4/hqdefault.jpg",
     videoUrl: "https://www.youtube.com/watch?v=DCOVbKvUhx4",
   },
   {
     id: 3,
-    title: "Creative Reels Hook",
+    title: "How hamza react on his ai pics and video? clear men",
     category: "short-form",
     thumbnail: "https://img.youtube.com/vi/2Mjk2oX0Ie0/hqdefault.jpg",
     videoUrl: "https://youtube.com/shorts/2Mjk2oX0Ie0",
@@ -48,42 +48,42 @@ const works = [
   },
   {
     id: 5,
-    title: "Fast-Paced Motion Edit",
+    title: "হামজা কি পারবে বিকাশ-এর এই চ্যালেঞ্জ নিতে?",
     category: "short-form",
     thumbnail: "https://img.youtube.com/vi/-lvuoX064qI/hqdefault.jpg",
     videoUrl: "https://www.youtube.com/shorts/-lvuoX064qI",
   },
   {
     id: 6,
-    title: "Cinematic Narrative Breakdown",
+    title: "পাগল নাকি 🤪 | Let’s Fix Our English & Teach Them Bangla! | 🇧🇩🇬🇧 Banglish Ep-2",
     category: "short-form",
     thumbnail: "https://img.youtube.com/vi/G9G_czgfgyI/hqdefault.jpg",
     videoUrl: "https://www.youtube.com/watch?v=G9G_czgfgyI",
   },
   {
     id: 7,
-    title: "Creator Chemistry Discussion",
+    title: "One dream. One cup. Get Ready Bangladesh bKash X Hamza",
     category: "podcast",
     thumbnail: "https://img.youtube.com/vi/z9Z_ksiQx6g/hqdefault.jpg",
     videoUrl: "https://youtube.com/shorts/z9Z_ksiQx6g",
   },
   {
     id: 8,
-    title: "Visual Storytelling Hook",
+    title: "ম্যাচের আগে হামজা কী মিস করে না?",
     category: "short-form",
     thumbnail: "https://img.youtube.com/vi/ZX-HBEB_XbQ/hqdefault.jpg",
     videoUrl: "https://www.youtube.com/shorts/ZX-HBEB_XbQ",
   },
   {
     id: 9,
-    title: "Cinematic Story Breakdown",
+    title: "2-Minutes Study Abroad – Episode 7: Life as a Student in the UK",
     category: "long-form",
     thumbnail: "https://img.youtube.com/vi/b-d0wMgGHAw/hqdefault.jpg",
     videoUrl: "https://www.youtube.com/watch?v=b-d0wMgGHAw",
   },
   {
     id: 10,
-    title: "Dynamic Sound Design",
+    title: "Are Romanians really open minded when it comes to interracial relationships?",
     category: "short-form",
     thumbnail: "https://img.youtube.com/vi/WcJD0SwNBkk/hqdefault.jpg",
     videoUrl: "https://www.youtube.com/shorts/WcJD0SwNBkk",
@@ -97,63 +97,63 @@ const works = [
   },
   {
     id: 12,
-    title: "Podcast Studio Insights",
+    title: "Finest Trailer,Promotional Video.Jihad hasan editor.",
     category: "podcast",
     thumbnail: "https://img.youtube.com/vi/Zp6WSVS7X5o/hqdefault.jpg",
     videoUrl: "https://youtu.be/Zp6WSVS7X5o",
   },
   {
     id: 13,
-    title: "Pro Editing Masterclass",
+    title: "মারিয়াম অফিসের নতুন বস , আজকে আমাকে কি কাজে দিল? - Xobaer Vlog 432",
     category: "long-form",
     thumbnail: "https://img.youtube.com/vi/ev7zCJwi0bk/hqdefault.jpg",
     videoUrl: "https://www.youtube.com/watch?v=ev7zCJwi0bk",
   },
   {
     id: 14,
-    title: "High Retention Video Guide",
+    title: "Graduation 2024 at SIRM: Where Memories Meet New Beginnings.",
     category: "long-form",
     thumbnail: "https://img.youtube.com/vi/J-QvxJkOuEQ/hqdefault.jpg",
     videoUrl: "https://www.youtube.com/watch?v=J-QvxJkOuEQ",
   },
   {
     id: 15,
-    title: "Storytelling Pace Analysis",
+    title: "জ্যামাইকা এসে তাজ্জব হয়ে গেলাম 😱 । Jamaica tour l Sagar Ahmed | Bangla Vlog 2023",
     category: "long-form",
     thumbnail: "https://img.youtube.com/vi/Vpk1IkDB29c/hqdefault.jpg",
     videoUrl: "https://www.youtube.com/watch?v=Vpk1IkDB29c",
   },
   {
     id: 16,
-    title: "Long Form Narrative Edit",
+    title: "ডকুমেন্টারি ফিল্ম মেকিং এ হাতেখড়ি দ্বিতিও পর্ব  | Documentary film making in Bangla Part 2",
     category: "long-form",
     thumbnail: "https://img.youtube.com/vi/RL7JGjaLQH0/hqdefault.jpg",
     videoUrl: "https://www.youtube.com/watch?v=RL7JGjaLQH0",
   },
   {
     id: 17,
-    title: "Behind The Mic Secrets",
+    title: "আজকাল কেন এত বিয়ে ব্যর্থ হয় 💔 | হাফ আ দ্বীন : হাফ আ ড্রামা পর্ব ১",
     category: "podcast",
     thumbnail: "https://img.youtube.com/vi/_-Yh_44HnPs/hqdefault.jpg",
     videoUrl: "https://www.youtube.com/watch?v=_-Yh_44HnPs",
   },
   {
     id: 18,
-    title: "Scaling Content Strategy",
+    title: "Are they real? zombie 3 Movie Trailer (2024). A zombie movie Official Trailer by J production.",
     category: "podcast",
     thumbnail: "https://img.youtube.com/vi/tsMzpRjMKP0/hqdefault.jpg",
     videoUrl: "https://youtu.be/tsMzpRjMKP0",
   },
   {
     id: 19,
-    title: "The Future of Podcasting",
+    title: "🎧 Partnerships and Student Focus",
     category: "podcast",
     thumbnail: "https://img.youtube.com/vi/QMtWA8Kzf6Y/hqdefault.jpg",
     videoUrl: "https://www.youtube.com/watch?v=QMtWA8Kzf6Y",
   },
   {
     id: 20,
-    title: "High Value Guest Secrets",
+    title: "Made in Brum Ep. 1 | Building Business, Careers & Community in Birmingham",
     category: "podcast",
     thumbnail: "https://img.youtube.com/vi/MKz3SSt49Ak/hqdefault.jpg",
     videoUrl: "https://www.youtube.com/watch?v=MKz3SSt49Ak",
@@ -167,6 +167,7 @@ export default function FeaturedWork() {
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const filteredWorks = works.filter((item) => item.category === activeCategory);
+  const isLongForm = activeCategory === "long-form";
 
   // Sync scroll position with activeIndex dot
   const handleScroll = () => {
@@ -183,7 +184,7 @@ export default function FeaturedWork() {
   };
 
   // Click handler to slide to specific index
-  const scrollTo = (index: number) => {
+  const scrollTo = useCallback((index: number) => {
     if (scrollContainerRef.current) {
       const child = scrollContainerRef.current.firstElementChild;
       if (child) {
@@ -196,15 +197,17 @@ export default function FeaturedWork() {
         setActiveIndex(index);
       }
     }
-  };
+  }, []);
 
   // Prev/Next handlers
   const handlePrev = () => {
-    scrollTo(Math.max(activeIndex - 1, 0));
+    const previousIndex = activeIndex === 0 ? filteredWorks.length - 1 : activeIndex - 1;
+    scrollTo(previousIndex);
   };
 
   const handleNext = () => {
-    scrollTo(Math.min(activeIndex + 1, filteredWorks.length - 1));
+    const nextIndex = activeIndex >= filteredWorks.length - 1 ? 0 : activeIndex + 1;
+    scrollTo(nextIndex);
   };
 
   // Reset index and stop any playing video when changing category
@@ -215,6 +218,20 @@ export default function FeaturedWork() {
       scrollContainerRef.current.scrollLeft = 0;
     }
   }, [activeCategory]);
+
+  useEffect(() => {
+    if (activePlayingId !== null || filteredWorks.length <= 1) return;
+
+    const intervalId = window.setInterval(() => {
+      setActiveIndex((currentIndex) => {
+        const nextIndex = currentIndex >= filteredWorks.length - 1 ? 0 : currentIndex + 1;
+        requestAnimationFrame(() => scrollTo(nextIndex));
+        return nextIndex;
+      });
+    }, 4200);
+
+    return () => window.clearInterval(intervalId);
+  }, [activePlayingId, filteredWorks.length, scrollTo]);
 
   return (
     <section className="relative w-full bg-[#0C0C0E] py-8 lg:py-16 px-6 sm:px-12 md:px-16 overflow-hidden select-none">
@@ -228,10 +245,10 @@ export default function FeaturedWork() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="flex flex-col gap-2 text-left">
             <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-              Featured Work
+              My Featured Work
             </h2>
             <p className="text-gray-400 text-sm md:text-base font-light">
-              A glimpse into our recent editing work and collaborations
+              A glimpse into my recent editing work and collaborations
             </p>
           </div>
 
@@ -264,7 +281,11 @@ export default function FeaturedWork() {
               <div
                 key={work.id}
                 onClick={() => activePlayingId !== work.id && setActivePlayingId(work.id)}
-                className="flex-shrink-0 w-[150px] sm:w-[190px] md:w-[210px] aspect-[9/16] rounded-[24px] overflow-hidden border border-gray-800/80 bg-gray-900/40 relative cursor-pointer group snap-start shadow-lg hover:border-[#FF5C00]/50 transition-all duration-500"
+                className={`flex-shrink-0 overflow-hidden border border-gray-800/80 bg-gray-900/40 relative cursor-pointer group snap-start shadow-lg hover:border-[#FF5C00]/50 transition-all duration-500 ${
+                  isLongForm
+                    ? "w-[285px] sm:w-[380px] md:w-[440px] lg:w-[500px] aspect-video rounded-[18px]"
+                    : "w-[150px] sm:w-[190px] md:w-[210px] aspect-[9/16] rounded-[24px]"
+                }`}
               >
                 <AnimatePresence mode="wait">
                   {activePlayingId === work.id ? (
@@ -331,8 +352,10 @@ export default function FeaturedWork() {
                       </div>
 
                       {/* Title Card */}
-                      <div className="absolute bottom-4 left-4 right-4 text-left">
-                        <h4 className="text-white text-sm sm:text-base font-bold drop-shadow-md line-clamp-2">
+                      <div className={`absolute text-left ${isLongForm ? "bottom-5 left-5 right-5" : "bottom-4 left-4 right-4"}`}>
+                        <h4 className={`text-white font-bold drop-shadow-md ${
+                          isLongForm ? "text-base sm:text-lg line-clamp-2" : "text-sm sm:text-base line-clamp-2"
+                        }`}>
                           {work.title}
                         </h4>
                         <p className="text-gray-300 text-[10px] sm:text-xs mt-0.5 font-medium tracking-wide uppercase drop-shadow-sm">
@@ -376,11 +399,8 @@ export default function FeaturedWork() {
             {/* Prev Button */}
             <button
               onClick={handlePrev}
-              disabled={activeIndex === 0}
-              className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-300 ${activeIndex === 0
-                ? "border-gray-800 text-gray-700 cursor-not-allowed"
-                : "border-gray-700 text-white hover:border-[#FF5C00] hover:text-[#FF5C00]"
-                }`}
+              className="w-12 h-12 rounded-full border border-gray-700 text-white hover:border-[#FF5C00] hover:text-[#FF5C00] flex items-center justify-center transition-all duration-300"
+              aria-label="Previous work"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
@@ -388,11 +408,8 @@ export default function FeaturedWork() {
             {/* Next Button */}
             <button
               onClick={handleNext}
-              disabled={activeIndex === filteredWorks.length - 1}
-              className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${activeIndex === filteredWorks.length - 1
-                ? "bg-gray-800 text-gray-500 cursor-not-allowed"
-                : "bg-[#FF5C00] text-white hover:bg-[#FF7324] shadow-[0_0_15px_rgba(255,92,0,0.3)]"
-                }`}
+              className="w-12 h-12 rounded-full bg-[#FF5C00] text-white hover:bg-[#FF7324] shadow-[0_0_15px_rgba(255,92,0,0.3)] flex items-center justify-center transition-all duration-300"
+              aria-label="Next work"
             >
               <ArrowRight className="w-5 h-5" />
             </button>

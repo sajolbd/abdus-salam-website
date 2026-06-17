@@ -11,16 +11,10 @@ const services = [
   "Long Form Videos",
   "Promotional Videos",
   "Podcasts",
-  "Full Video Editing Package"
+  "Full Video Editing Package",
 ];
 
-const timeSlots = [
-  "09:00 AM",
-  "10:30 AM",
-  "01:00 PM",
-  "03:30 PM",
-  "05:00 PM"
-];
+const timeSlots = ["09:00 AM", "10:30 AM", "01:00 PM", "03:30 PM", "05:00 PM"];
 
 export default function BookingModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +25,7 @@ export default function BookingModal() {
     service: services[0],
     date: "",
     timeSlot: "",
-    message: ""
+    message: "",
   });
 
   // Listen to the global trigger event
@@ -41,7 +35,11 @@ export default function BookingModal() {
     return () => window.removeEventListener("open-booking-modal", handleOpen);
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -53,14 +51,19 @@ export default function BookingModal() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.email || !formData.date || !formData.timeSlot) {
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.date ||
+      !formData.timeSlot
+    ) {
       Swal.fire({
         title: "Incomplete Details",
         text: "Please fill out all required fields and select a time slot.",
         icon: "warning",
         background: "#121214",
         color: "#fff",
-        confirmButtonColor: "#FF5C00"
+        confirmButtonColor: "#FF5C00",
       });
       return;
     }
@@ -68,9 +71,13 @@ export default function BookingModal() {
     setLoading(true);
 
     try {
-      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "service_placeholder";
-      const templateId = process.env.NEXT_PUBLIC_EMAILJS_BOOKING_TEMPLATE_ID || "template_placeholder";
-      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "key_placeholder";
+      const serviceId =
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "service_cwznue7";
+      const templateId =
+        process.env.NEXT_PUBLIC_EMAILJS_BOOKING_TEMPLATE_ID ||
+        "template_mmsvwt6";
+      const publicKey =
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "RDIZdaG_EIZv3N4LT";
 
       const templateParams = {
         from_name: formData.name,
@@ -78,13 +85,18 @@ export default function BookingModal() {
         service: formData.service,
         date: formData.date,
         time_slot: formData.timeSlot,
-        message: formData.message || "No additional notes provided."
+        message: formData.message || "No additional notes provided.",
       };
 
-      if (serviceId === "service_placeholder" || publicKey === "key_placeholder") {
+      if (
+        serviceId === "service_placeholder" ||
+        publicKey === "key_placeholder"
+      ) {
         // Mock successful email sending in local dev
         await new Promise((resolve) => setTimeout(resolve, 1200));
-        console.warn("EmailJS Booking: Using placeholders. Set env variables for live bookings.");
+        console.warn(
+          "EmailJS Booking: Using placeholders. Set env variables for live bookings.",
+        );
       } else {
         await emailjs.send(serviceId, templateId, templateParams, publicKey);
       }
@@ -95,7 +107,7 @@ export default function BookingModal() {
         icon: "success",
         background: "#121214",
         color: "#fff",
-        confirmButtonColor: "#FF5C00"
+        confirmButtonColor: "#FF5C00",
       });
 
       // Reset Form and Close Modal
@@ -105,10 +117,9 @@ export default function BookingModal() {
         service: services[0],
         date: "",
         timeSlot: "",
-        message: ""
+        message: "",
       });
       setIsOpen(false);
-
     } catch (error) {
       console.error("Booking Error:", error);
       Swal.fire({
@@ -117,7 +128,7 @@ export default function BookingModal() {
         icon: "error",
         background: "#121214",
         color: "#fff",
-        confirmButtonColor: "#FF5C00"
+        confirmButtonColor: "#FF5C00",
       });
     } finally {
       setLoading(false);
@@ -173,29 +184,46 @@ export default function BookingModal() {
               </div>
 
               <p className="text-gray-400 text-xs md:text-sm leading-relaxed mt-2">
-                Find a convenient time slot to discuss your video goals. We will look at your 
-                raw footage, explore design formats (vertical shorts, ads, long-form videos), 
-                and map out a storytelling framework to scale your conversion rates.
+                Find a convenient time slot to discuss your video goals. We will
+                look at your raw footage, explore design formats (vertical
+                shorts, ads, long-form videos), and map out a storytelling
+                framework to scale your conversion rates.
               </p>
 
               {/* Aperture Logo Watermark */}
               <div className="mt-auto pt-8 opacity-20 flex items-center gap-2">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-white">
-                  <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 4C14.07 4 15.93 4.83 17.29 6.17L12.54 10.92C12.38 10.97 12.2 11 12 11C11.45 11 11 10.55 11 10C11 9.8 11.03 9.62 11.08 9.46L6.17 4.55C7.75 3.58 9.8 3 12 3V4Z" fill="currentColor" />
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="text-white"
+                >
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 4C14.07 4 15.93 4.83 17.29 6.17L12.54 10.92C12.38 10.97 12.2 11 12 11C11.45 11 11 10.55 11 10C11 9.8 11.03 9.62 11.08 9.46L6.17 4.55C7.75 3.58 9.8 3 12 3V4Z"
+                    fill="currentColor"
+                  />
                 </svg>
-                <span className="font-bold text-white tracking-tight text-sm">JihadHasan</span>
+                <span className="font-bold text-white tracking-tight text-sm">
+                  JihadHasan
+                </span>
               </div>
             </div>
 
             {/* Right Column: Calendly Form (md:col-span-7) */}
-            <form onSubmit={handleSubmit} className="md:col-span-7 p-8 flex flex-col gap-5 text-left overflow-y-auto max-h-[85vh] md:max-h-none">
+            <form
+              onSubmit={handleSubmit}
+              className="md:col-span-7 p-8 flex flex-col gap-5 text-left overflow-y-auto max-h-[85vh] md:max-h-none"
+            >
               <h4 className="text-lg font-bold text-white mb-1">
                 Select Date & Details
               </h4>
 
               {/* Name Input */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-gray-400">Your Name *</label>
+                <label className="text-xs font-semibold text-gray-400">
+                  Your Name *
+                </label>
                 <input
                   type="text"
                   name="name"
@@ -209,7 +237,9 @@ export default function BookingModal() {
 
               {/* Email Input */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-gray-400">Email Address *</label>
+                <label className="text-xs font-semibold text-gray-400">
+                  Email Address *
+                </label>
                 <input
                   type="email"
                   name="email"
@@ -223,7 +253,9 @@ export default function BookingModal() {
 
               {/* Service Dropdown */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-gray-400">Required Service</label>
+                <label className="text-xs font-semibold text-gray-400">
+                  Required Service
+                </label>
                 <select
                   name="service"
                   value={formData.service}
@@ -240,7 +272,9 @@ export default function BookingModal() {
 
               {/* Date Picker */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-gray-400">Select Date *</label>
+                <label className="text-xs font-semibold text-gray-400">
+                  Select Date *
+                </label>
                 <div className="relative">
                   <input
                     type="date"
@@ -256,7 +290,9 @@ export default function BookingModal() {
 
               {/* Time Slots Selector */}
               <div className="flex flex-col gap-2">
-                <label className="text-xs font-semibold text-gray-400">Select Time Slot *</label>
+                <label className="text-xs font-semibold text-gray-400">
+                  Select Time Slot *
+                </label>
                 <div className="flex flex-wrap gap-2">
                   {timeSlots.map((slot) => (
                     <button
@@ -277,7 +313,9 @@ export default function BookingModal() {
 
               {/* Notes TextArea */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-xs font-semibold text-gray-400">Additional Notes</label>
+                <label className="text-xs font-semibold text-gray-400">
+                  Additional Notes
+                </label>
                 <textarea
                   name="message"
                   value={formData.message}

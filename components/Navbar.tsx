@@ -72,7 +72,7 @@ export default function Navbar() {
               pathname === "/about-us" ? "font-semibold text-[#FF5C00]" : "font-medium text-gray-400 hover:text-white"
             }`}
           >
-            About us
+            About me
           </Link>
           <Link
             href="/work"
@@ -137,7 +137,7 @@ export default function Navbar() {
               }`}
               onClick={() => setMobileMenuOpen(false)}
             >
-              About us
+              About me
             </Link>
             <Link
               href="/work"

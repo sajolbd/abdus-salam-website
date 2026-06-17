@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { Video, Smartphone, Sparkles, TrendingUp, ArrowUpRight } from "lucide-react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Smartphone, Sparkles, TrendingUp, Video } from "lucide-react";
 import { motion } from "framer-motion";
 
 const servicesList = [
@@ -31,9 +31,69 @@ const servicesList = [
   },
 ];
 
+const CARD_GAP = 24;
+
 export default function Services() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [slideOffset, setSlideOffset] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(true);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const renderedServices = [...servicesList, ...servicesList];
+  const activeDotIndex = activeIndex % servicesList.length;
+
   const triggerBooking = () => {
     window.dispatchEvent(new CustomEvent("open-booking-modal"));
+  };
+
+  const measureSlide = useCallback(() => {
+    if (!trackRef.current) return;
+
+    const child = trackRef.current.firstElementChild;
+    if (!child) return;
+
+    const childWidth = child.getBoundingClientRect().width;
+    setSlideOffset(childWidth + CARD_GAP);
+  }, []);
+
+  const goToService = useCallback((index: number) => {
+    setIsAnimating(true);
+    setActiveIndex(index);
+  }, []);
+
+  useEffect(() => {
+    measureSlide();
+    window.addEventListener("resize", measureSlide);
+
+    return () => window.removeEventListener("resize", measureSlide);
+  }, [measureSlide]);
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setIsAnimating(true);
+      setActiveIndex((currentIndex) => {
+        return currentIndex + 1;
+      });
+    }, 3600);
+
+    return () => window.clearInterval(intervalId);
+  }, []);
+
+  const handlePrev = () => {
+    goToService(activeDotIndex === 0 ? servicesList.length - 1 : activeDotIndex - 1);
+  };
+
+  const handleNext = () => {
+    goToService(activeIndex + 1);
+  };
+
+  const handleTransitionEnd = () => {
+    if (activeIndex < servicesList.length) return;
+
+    setIsAnimating(false);
+    setActiveIndex(activeIndex % servicesList.length);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setIsAnimating(true));
+    });
   };
 
   return (
@@ -49,7 +109,7 @@ export default function Services() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="flex flex-col gap-2 text-left">
             <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-              Our Services
+              My Services
             </h2>
             <p className="text-gray-400 text-sm md:text-base font-light">
               Comprehensive video production solutions tailored to your goals
@@ -65,37 +125,76 @@ export default function Services() {
           </button>
         </div>
 
-        {/* Services 4-Column Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {servicesList.map((svc, index) => {
-            const IconComponent = svc.icon;
+        {/* Services Slider */}
+        <div className="relative w-full overflow-hidden">
+          <div
+            ref={trackRef}
+            onTransitionEnd={handleTransitionEnd}
+            className={`flex gap-6 py-2 px-1 ${isAnimating ? "transition-transform duration-700 ease-out" : ""}`}
+            style={{ transform: `translateX(-${activeIndex * slideOffset}px)` }}
+          >
+            {renderedServices.map((svc, index) => {
+              const IconComponent = svc.icon;
 
-            return (
-              <motion.div
-                key={svc.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.1 }}
-                className="flex flex-col gap-5 p-6 md:p-8 rounded-[24px] border border-gray-800 bg-gray-950/20 backdrop-blur-sm hover:border-[#FF5C00]/50 transition-all duration-500 hover:-translate-y-1 hover:bg-gray-950/45 group"
-              >
-                {/* Icon Outline container */}
-                <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 group-hover:text-[#FF5C00] group-hover:border-[#FF5C00]/30 transition-all duration-500">
-                  <IconComponent className="w-6 h-6 stroke-[1.5px]" />
-                </div>
+              return (
+                <motion.div
+                  key={`${svc.id}-${index}`}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.1 }}
+                  className="flex-shrink-0 w-[280px] sm:w-[320px] lg:w-[360px] h-[340px] sm:h-[320px] lg:h-[300px] flex flex-col gap-5 p-6 md:p-8 rounded-[24px] border border-gray-800 bg-gray-950/20 backdrop-blur-sm hover:border-[#FF5C00]/50 transition-colors duration-500 hover:bg-gray-950/45 group"
+                >
+                  {/* Icon Outline container */}
+                  <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 group-hover:text-[#FF5C00] group-hover:border-[#FF5C00]/30 transition-all duration-500">
+                    <IconComponent className="w-6 h-6 stroke-[1.5px]" />
+                  </div>
 
-                {/* Content */}
-                <div className="flex flex-col gap-3 text-left">
-                  <h3 className="text-lg font-bold text-white group-hover:text-gray-200 transition-colors">
-                    {svc.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed font-light">
-                    {svc.description}
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
+                  {/* Content */}
+                  <div className="flex flex-col gap-3 text-left">
+                    <h3 className="text-lg font-bold text-white group-hover:text-gray-200 transition-colors">
+                      {svc.title}
+                    </h3>
+                    <p className="text-gray-400 text-sm leading-relaxed font-light">
+                      {svc.description}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between gap-6">
+          <div className="flex gap-2">
+            {servicesList.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToService(index)}
+                className={`h-2.5 rounded-full transition-all duration-300 ${
+                  activeDotIndex === index ? "w-8 bg-[#FF5C00]" : "w-2.5 bg-gray-700 hover:bg-gray-500"
+                }`}
+                aria-label={`Go to service ${index + 1}`}
+              />
+            ))}
+          </div>
+
+          <div className="flex gap-3">
+            <button
+              onClick={handlePrev}
+              className="w-11 h-11 rounded-full border border-gray-700 text-white hover:border-[#FF5C00] hover:text-[#FF5C00] flex items-center justify-center transition-all duration-300"
+              aria-label="Previous service"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={handleNext}
+              className="w-11 h-11 rounded-full bg-[#FF5C00] text-white hover:bg-[#FF7324] shadow-[0_0_15px_rgba(255,92,0,0.3)] flex items-center justify-center transition-all duration-300"
+              aria-label="Next service"
+            >
+              <ArrowRight className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
       </div>
