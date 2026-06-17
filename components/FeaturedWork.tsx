@@ -11,6 +11,9 @@ const categories = [
   { id: "podcast", label: "Podcast" },
 ];
 
+const CARD_GAP = 24;
+const LOOP_COPIES = 4;
+
 function getYouTubeId(url: string) {
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\/shorts\/)([^#\&\?]*).*/;
   const match = url.match(regExp);
@@ -163,75 +166,127 @@ const works = [
 export default function FeaturedWork() {
   const [activeCategory, setActiveCategory] = useState("short-form");
   const [activeIndex, setActiveIndex] = useState(0);
-  const [activePlayingId, setActivePlayingId] = useState<number | null>(null);
+  const [activePlayingKey, setActivePlayingKey] = useState<string | null>(null);
+  const [slideOffset, setSlideOffset] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(true);
 
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const filteredWorks = works.filter((item) => item.category === activeCategory);
+  const renderedWorks = filteredWorks.length > 1
+    ? Array.from({ length: LOOP_COPIES }, () => filteredWorks).flat()
+    : filteredWorks;
   const isLongForm = activeCategory === "long-form";
+  const activeDotIndex = filteredWorks.length > 0 ? activeIndex % filteredWorks.length : 0;
 
-  // Sync scroll position with activeIndex dot
-  const handleScroll = () => {
-    if (scrollContainerRef.current) {
-      const { scrollLeft, clientWidth } = scrollContainerRef.current;
-      const child = scrollContainerRef.current.firstElementChild;
-      if (child) {
-        const childWidth = child.getBoundingClientRect().width;
-        // The container gap is gap-6 which is 24px
-        const index = Math.round(scrollLeft / (childWidth + 24));
-        setActiveIndex(Math.min(Math.max(index, 0), filteredWorks.length - 1));
-      }
-    }
-  };
+  const measureSlide = useCallback(() => {
+    if (!trackRef.current) return;
 
-  // Click handler to slide to specific index
-  const scrollTo = useCallback((index: number) => {
-    if (scrollContainerRef.current) {
-      const child = scrollContainerRef.current.firstElementChild;
-      if (child) {
-        const childWidth = child.getBoundingClientRect().width;
-        const targetScrollLeft = index * (childWidth + 24);
-        scrollContainerRef.current.scrollTo({
-          left: targetScrollLeft,
-          behavior: "smooth",
-        });
-        setActiveIndex(index);
-      }
-    }
+    const child = trackRef.current.firstElementChild;
+    if (!child) return;
+
+    const childWidth = child.getBoundingClientRect().width;
+    setSlideOffset(childWidth + CARD_GAP);
   }, []);
 
-  // Prev/Next handlers
-  const handlePrev = () => {
-    const previousIndex = activeIndex === 0 ? filteredWorks.length - 1 : activeIndex - 1;
-    scrollTo(previousIndex);
-  };
+  const goToWork = useCallback((index: number) => {
+    if (filteredWorks.length <= 1) return;
 
-  const handleNext = () => {
-    const nextIndex = activeIndex >= filteredWorks.length - 1 ? 0 : activeIndex + 1;
-    scrollTo(nextIndex);
-  };
+    setIsAnimating(true);
+    setActiveIndex(index);
+  }, [filteredWorks.length]);
 
-  // Reset index and stop any playing video when changing category
   useEffect(() => {
+    const frameId = window.requestAnimationFrame(measureSlide);
+    window.addEventListener("resize", measureSlide);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      window.removeEventListener("resize", measureSlide);
+    };
+  }, [measureSlide]);
+
+  useEffect(() => {
+    setIsAnimating(false);
     setActiveIndex(0);
-    setActivePlayingId(null);
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollLeft = 0;
-    }
-  }, [activeCategory]);
+    setActivePlayingKey(null);
+
+    const measureFrameId = window.requestAnimationFrame(measureSlide);
+    let restoreFrameId = 0;
+    const resetFrameId = window.requestAnimationFrame(() => {
+      restoreFrameId = window.requestAnimationFrame(() => setIsAnimating(true));
+    });
+
+    return () => {
+      window.cancelAnimationFrame(measureFrameId);
+      window.cancelAnimationFrame(resetFrameId);
+      window.cancelAnimationFrame(restoreFrameId);
+    };
+  }, [activeCategory, measureSlide]);
 
   useEffect(() => {
-    if (activePlayingId !== null || filteredWorks.length <= 1) return;
+    if (activePlayingKey !== null || filteredWorks.length <= 1) return;
 
     const intervalId = window.setInterval(() => {
-      setActiveIndex((currentIndex) => {
-        const nextIndex = currentIndex >= filteredWorks.length - 1 ? 0 : currentIndex + 1;
-        requestAnimationFrame(() => scrollTo(nextIndex));
-        return nextIndex;
-      });
+      setIsAnimating(true);
+      setActiveIndex((currentIndex) => currentIndex + 1);
     }, 4200);
 
     return () => window.clearInterval(intervalId);
-  }, [activePlayingId, filteredWorks.length, scrollTo]);
+  }, [activePlayingKey, filteredWorks.length]);
+
+  const handleTransitionEnd = (event: React.TransitionEvent<HTMLDivElement>) => {
+    if (event.target !== event.currentTarget) return;
+    if (filteredWorks.length <= 1 || activeIndex < filteredWorks.length) return;
+
+    setIsAnimating(false);
+    setActiveIndex(activeIndex % filteredWorks.length);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setIsAnimating(true));
+    });
+  };
+
+  const loopBackToLast = () => {
+    setIsAnimating(false);
+    setActiveIndex(filteredWorks.length);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setIsAnimating(true);
+        setActiveIndex(filteredWorks.length - 1);
+      });
+    });
+  };
+
+  const handlePrev = () => {
+    if (filteredWorks.length <= 1) return;
+
+    if (activeDotIndex === 0) {
+      loopBackToLast();
+      return;
+    }
+
+    goToWork(activeIndex - 1);
+  };
+
+  const handleNext = () => {
+    if (filteredWorks.length <= 1) return;
+    goToWork(activeIndex + 1);
+  };
+
+  const handleCategoryChange = (categoryId: string) => {
+    if (categoryId === activeCategory) return;
+    setActiveCategory(categoryId);
+  };
+
+  const handleDotClick = (index: number) => {
+    goToWork(index);
+  };
+
+  const getCardKey = (workId: number, index: number) => `${workId}-${index}`;
+
+  const sliderTransform = {
+    transform: `translate3d(-${activeIndex * slideOffset}px, 0, 0)`,
+  };
 
   return (
     <section className="relative w-full bg-[#0C0C0E] py-8 lg:py-16 px-6 sm:px-12 md:px-16 overflow-hidden select-none">
@@ -257,7 +312,7 @@ export default function FeaturedWork() {
             {categories.map((cat) => (
               <button
                 key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
+                onClick={() => handleCategoryChange(cat.id)}
                 className={`px-6 py-2.5 rounded-full border text-sm font-semibold tracking-wide transition-all duration-300 ${activeCategory === cat.id
                   ? "bg-[#FF5C00] border-[#FF5C00] text-white shadow-[0_0_20px_rgba(255,92,0,0.4)]"
                   : "border-gray-800 text-gray-400 hover:border-gray-600 hover:text-white"
@@ -270,103 +325,108 @@ export default function FeaturedWork() {
         </div>
 
         {/* Video Slider Viewport */}
-        <div className="relative w-full">
+        <div className="relative w-full overflow-hidden">
           <div
-            ref={scrollContainerRef}
-            onScroll={handleScroll}
-            className="flex gap-6 overflow-x-auto no-scrollbar snap-x snap-mandatory py-4 px-2"
-            style={{ scrollbarWidth: "none" }}
+            ref={trackRef}
+            onTransitionEnd={handleTransitionEnd}
+            className={`flex gap-6 py-4 px-2 ${isAnimating ? "transition-transform duration-700 ease-out" : ""}`}
+            style={sliderTransform}
           >
-            {filteredWorks.map((work) => (
-              <div
-                key={work.id}
-                onClick={() => activePlayingId !== work.id && setActivePlayingId(work.id)}
-                className={`flex-shrink-0 overflow-hidden border border-gray-800/80 bg-gray-900/40 relative cursor-pointer group snap-start shadow-lg hover:border-[#FF5C00]/50 transition-all duration-500 ${
-                  isLongForm
-                    ? "w-[285px] sm:w-[380px] md:w-[440px] lg:w-[500px] aspect-video rounded-[18px]"
-                    : "w-[150px] sm:w-[190px] md:w-[210px] aspect-[9/16] rounded-[24px]"
-                }`}
-              >
-                <AnimatePresence mode="wait">
-                  {activePlayingId === work.id ? (
-                    <motion.div
-                      key="video"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="absolute inset-0 w-full h-full z-20 bg-black"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      {/* Video Close Button */}
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setActivePlayingId(null);
-                        }}
-                        className="absolute top-2 right-2 z-30 w-7 h-7 rounded-full bg-black/70 hover:bg-black/90 flex items-center justify-center text-white transition-colors"
+            {renderedWorks.map((work, index) => {
+              const cardKey = getCardKey(work.id, index);
+              const isPlaying = activePlayingKey === cardKey;
+
+              return (
+                <div
+                  key={cardKey}
+                  onClick={() => !isPlaying && setActivePlayingKey(cardKey)}
+                  className={`flex-shrink-0 overflow-hidden border border-gray-800/80 bg-gray-900/40 relative cursor-pointer group shadow-lg hover:border-[#FF5C00]/50 transition-all duration-500 ${
+                    isLongForm
+                      ? "w-[285px] sm:w-[380px] md:w-[440px] lg:w-[500px] aspect-video rounded-[18px]"
+                      : "w-[150px] sm:w-[190px] md:w-[210px] aspect-[9/16] rounded-[24px]"
+                  }`}
+                >
+                  <AnimatePresence mode="wait">
+                    {isPlaying ? (
+                      <motion.div
+                        key="video"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute inset-0 w-full h-full z-20 bg-black"
+                        onClick={(e) => e.stopPropagation()}
                       >
-                        <X className="w-4 h-4" />
-                      </button>
+                        {/* Video Close Button */}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActivePlayingKey(null);
+                          }}
+                          className="absolute top-2 right-2 z-30 w-7 h-7 rounded-full bg-black/70 hover:bg-black/90 flex items-center justify-center text-white transition-colors"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
 
-                      {/* Video Player */}
-                      {work.videoUrl.includes("youtube.com") || work.videoUrl.includes("youtu.be") ? (
-                        <iframe
-                          src={`https://www.youtube.com/embed/${getYouTubeId(work.videoUrl)}?autoplay=1&mute=0`}
-                          className="w-full h-full object-cover"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                          title={work.title}
+                        {/* Video Player */}
+                        {work.videoUrl.includes("youtube.com") || work.videoUrl.includes("youtu.be") ? (
+                          <iframe
+                            src={`https://www.youtube.com/embed/${getYouTubeId(work.videoUrl)}?autoplay=1&mute=0`}
+                            className="w-full h-full object-cover"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            title={work.title}
+                          />
+                        ) : (
+                          <video
+                            src={work.videoUrl}
+                            className="w-full h-full object-cover"
+                            controls
+                            autoPlay
+                            playsInline
+                            onEnded={() => setActivePlayingKey(null)}
+                          />
+                        )}
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="thumbnail"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute inset-0 w-full h-full"
+                      >
+                        {/* Thumbnail Background */}
+                        <img
+                          src={work.thumbnail}
+                          alt={work.title}
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
-                      ) : (
-                        <video
-                          src={work.videoUrl}
-                          className="w-full h-full object-cover"
-                          controls
-                          autoPlay
-                          playsInline
-                          onEnded={() => setActivePlayingId(null)}
-                        />
-                      )}
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="thumbnail"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="absolute inset-0 w-full h-full"
-                    >
-                      {/* Thumbnail Background */}
-                      <img
-                        src={work.thumbnail}
-                        alt={work.title}
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
 
-                      {/* Dark Hover overlay */}
-                      <div className="absolute inset-0 bg-black/35 group-hover:bg-black/50 transition-colors duration-300 flex items-center justify-center" />
+                        {/* Dark Hover overlay */}
+                        <div className="absolute inset-0 bg-black/35 group-hover:bg-black/50 transition-colors duration-300 flex items-center justify-center" />
 
-                      {/* Pulsing Play Button */}
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110">
-                        <Play className="w-4 h-4 text-black fill-black ml-0.5" />
-                      </div>
+                        {/* Pulsing Play Button */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110">
+                          <Play className="w-4 h-4 text-black fill-black ml-0.5" />
+                        </div>
 
-                      {/* Title Card */}
-                      <div className={`absolute text-left ${isLongForm ? "bottom-5 left-5 right-5" : "bottom-4 left-4 right-4"}`}>
-                        <h4 className={`text-white font-bold drop-shadow-md ${
-                          isLongForm ? "text-base sm:text-lg line-clamp-2" : "text-sm sm:text-base line-clamp-2"
-                        }`}>
-                          {work.title}
-                        </h4>
-                        <p className="text-gray-300 text-[10px] sm:text-xs mt-0.5 font-medium tracking-wide uppercase drop-shadow-sm">
-                          {activeCategory.replace(/-/g, " ")}
-                        </p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
+                        {/* Title Card */}
+                        <div className={`absolute text-left ${isLongForm ? "bottom-5 left-5 right-5" : "bottom-4 left-4 right-4"}`}>
+                          <h4 className={`text-white font-bold drop-shadow-md ${
+                            isLongForm ? "text-base sm:text-lg line-clamp-2" : "text-sm sm:text-base line-clamp-2"
+                          }`}>
+                            {work.title}
+                          </h4>
+                          <p className="text-gray-300 text-[10px] sm:text-xs mt-0.5 font-medium tracking-wide uppercase drop-shadow-sm">
+                            {activeCategory.replace(/-/g, " ")}
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -384,8 +444,8 @@ export default function FeaturedWork() {
             {filteredWorks.map((_, idx) => (
               <button
                 key={idx}
-                onClick={() => scrollTo(idx)}
-                className={`h-2.5 rounded-full transition-all duration-300 ${activeIndex === idx
+                onClick={() => handleDotClick(idx)}
+                className={`h-2.5 rounded-full transition-all duration-300 ${activeDotIndex === idx
                   ? "w-8 bg-[#FF5C00]"
                   : "w-2.5 bg-gray-700 hover:bg-gray-500"
                   }`}

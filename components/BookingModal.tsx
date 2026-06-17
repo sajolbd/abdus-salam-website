@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { X, Calendar, Clock, Video } from "lucide-react";
+import { ArrowUpRight, X, Clock, Video } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import Swal from "sweetalert2";
@@ -16,9 +16,16 @@ const services = [
 
 const timeSlots = ["09:00 AM", "10:30 AM", "01:00 PM", "03:30 PM", "05:00 PM"];
 
+const getTodayInputValue = () => {
+  const today = new Date();
+  today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+  return today.toISOString().split("T")[0];
+};
+
 export default function BookingModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const minBookingDate = getTodayInputValue();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -71,13 +78,14 @@ export default function BookingModal() {
     setLoading(true);
 
     try {
-      const serviceId =
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "service_cwznue7";
-      const templateId =
-        process.env.NEXT_PUBLIC_EMAILJS_BOOKING_TEMPLATE_ID ||
+      const serviceId: string =
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID?.trim() || "service_cwznue7";
+      const templateId: string =
+        process.env.NEXT_PUBLIC_EMAILJS_BOOKING_TEMPLATE_ID?.trim() ||
         "template_mmsvwt6";
-      const publicKey =
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "RDIZdaG_EIZv3N4LT";
+      const publicKey: string =
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY?.trim() ||
+        "RDIZdaG_EIZv3N4LT";
 
       const templateParams = {
         from_name: formData.name,
@@ -89,8 +97,9 @@ export default function BookingModal() {
       };
 
       if (
-        serviceId === "service_placeholder" ||
-        publicKey === "key_placeholder"
+        serviceId === "service_cwznue7" ||
+        templateId === "template_mmsvwt6" ||
+        publicKey === "RDIZdaG_EIZv3N4LT"
       ) {
         // Mock successful email sending in local dev
         await new Promise((resolve) => setTimeout(resolve, 1200));
@@ -281,7 +290,7 @@ export default function BookingModal() {
                     name="date"
                     value={formData.date}
                     onChange={handleChange}
-                    min={new Date().toISOString().split("T")[0]}
+                    min={minBookingDate}
                     className="w-full bg-black/30 border border-gray-800 rounded-xl px-4 py-3 text-sm text-white focus:border-[#FF5C00] transition-colors cursor-pointer"
                     required
                   />
