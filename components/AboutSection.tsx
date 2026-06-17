@@ -54,10 +54,10 @@ export default function AboutSection() {
           {/* Paragraph Description */}
           <div className="flex flex-col gap-4 text-gray-400 text-sm sm:text-base md:text-lg leading-relaxed font-light">
             <p>
-              I'm Jihad Hasan, a professional Video Editor with 6+ years of experience creating content that helps brands and creators stand out in a crowded digital world. Having worked with international clients across the UK and Germany, as well as top-tier Bangladeshi brands like bKash, Clear Men, and leading creators, I understand what it takes to make a video stand out in a crowded feed.
+              I&apos;m Jihad Hasan, a <span className="font-semibold text-white">professional Video Editor</span> with <span className="font-semibold text-[#FF5C00]">6+ years of experience</span> creating content that helps brands and creators stand out in a crowded digital world. Having worked with <span className="font-semibold text-white">international clients across the UK and Germany</span>, as well as <span className="font-semibold text-white">top-tier Bangladeshi brands like bKash, Clear Men</span>, and leading creators, I understand what it takes to make a video <span className="font-semibold text-[#FF5C00]">stand out in a crowded feed</span>.
             </p>
             <p>
-              My goal is simple: to turn your raw footage and ideas into professional, engaging videos that connect with your audience and elevate your brand. If you want content that stands out and delivers results, let's work together.
+              My goal is simple: to turn your raw footage and ideas into <span className="font-semibold text-white">professional, engaging videos</span> that <span className="font-semibold text-[#FF5C00]">connect with your audience</span> and <span className="font-semibold text-white">elevate your brand</span>. If you want content that stands out and <span className="font-semibold text-[#FF5C00]">delivers results</span>, let&apos;s work together.
             </p>
           </div>
 

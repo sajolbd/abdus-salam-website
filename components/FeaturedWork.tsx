@@ -175,7 +175,7 @@ export default function FeaturedWork() {
   const renderedWorks = filteredWorks.length > 1
     ? Array.from({ length: LOOP_COPIES }, () => filteredWorks).flat()
     : filteredWorks;
-  const isLongForm = activeCategory === "long-form";
+  const isWideCard = activeCategory === "long-form" || activeCategory === "podcast";
   const activeDotIndex = filteredWorks.length > 0 ? activeIndex % filteredWorks.length : 0;
 
   const measureSlide = useCallback(() => {
@@ -341,7 +341,7 @@ export default function FeaturedWork() {
                   key={cardKey}
                   onClick={() => !isPlaying && setActivePlayingKey(cardKey)}
                   className={`flex-shrink-0 overflow-hidden border border-gray-800/80 bg-gray-900/40 relative cursor-pointer group shadow-lg hover:border-[#FF5C00]/50 transition-all duration-500 ${
-                    isLongForm
+                    isWideCard
                       ? "w-[285px] sm:w-[380px] md:w-[440px] lg:w-[500px] aspect-video rounded-[18px]"
                       : "w-[150px] sm:w-[190px] md:w-[210px] aspect-[9/16] rounded-[24px]"
                   }`}
@@ -411,9 +411,9 @@ export default function FeaturedWork() {
                         </div>
 
                         {/* Title Card */}
-                        <div className={`absolute text-left ${isLongForm ? "bottom-5 left-5 right-5" : "bottom-4 left-4 right-4"}`}>
+                        <div className={`absolute text-left ${isWideCard ? "bottom-5 left-5 right-5" : "bottom-4 left-4 right-4"}`}>
                           <h4 className={`text-white font-bold drop-shadow-md ${
-                            isLongForm ? "text-base sm:text-lg line-clamp-2" : "text-sm sm:text-base line-clamp-2"
+                            isWideCard ? "text-base sm:text-lg line-clamp-2" : "text-sm sm:text-base line-clamp-2"
                           }`}>
                             {work.title}
                           </h4>
