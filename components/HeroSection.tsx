@@ -89,7 +89,7 @@ export default function HeroSection() {
           className="flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-8 mt-10 w-full px-4"
         >
           {/* Main CTA Button */}
-          <button 
+          <button
             onClick={() => window.dispatchEvent(new CustomEvent("open-booking-modal"))}
             className="bg-[#FF5C00] text-white px-8 py-4 rounded-full font-bold text-xs sm:text-sm tracking-wider flex items-center justify-center gap-2 hover:bg-[#FF7324] hover:shadow-[0_0_35px_rgba(255,92,0,0.55)] hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 w-full sm:w-auto"
           >
@@ -141,7 +141,7 @@ export default function HeroSection() {
                   </svg>
                 ))}
               </div>
-              <span className="text-[11px] font-medium text-gray-400 mt-0.5">Join 2000+ content creators</span>
+              <span className="text-[11px] font-medium text-gray-400 mt-0.5">I Have Worked On 350+  Projects And Popular Creators</span>
             </div>
           </div>
         </motion.div>

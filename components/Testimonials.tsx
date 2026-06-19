@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,14 +8,23 @@ import testimonials from "../data/testimonials.json";
 
 export default function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-  };
+  }, []);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
+  }, []);
+
+  useEffect(() => {
+    if (isPaused || testimonials.length <= 1) return;
+
+    const autoplayTimer = window.setInterval(handleNext, 4000);
+
+    return () => window.clearInterval(autoplayTimer);
+  }, [handleNext, isPaused]);
 
   const current = testimonials[currentIndex];
 
@@ -55,7 +64,11 @@ export default function Testimonials() {
         {/* Group Grid and Navigation Arrows to pull arrows closer to the cards */}
         <div className="flex flex-col gap-8 md:gap-10">
           {/* Main Section Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div
+            className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
 
             {/* Left + Middle Content: Active Details (lg:col-span-8) */}
             <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-center bg-gray-950/20 p-6 md:p-8 rounded-[36px] border border-gray-900/50 backdrop-blur-sm">
@@ -103,7 +116,7 @@ export default function Testimonials() {
                     transition={{ duration: 0.3 }}
                   >
                     <p className="text-white text-base sm:text-lg md:text-xl font-medium leading-relaxed drop-shadow-sm">
-                      "{current.text}"
+                      &ldquo;{current.text}&rdquo;
                     </p>
 
                     {/* Name and Role */}
@@ -111,9 +124,15 @@ export default function Testimonials() {
                       <h4 className="text-white text-lg sm:text-xl font-bold">
                         {current.name}
                       </h4>
-                      <p className="text-gray-400 text-xs sm:text-sm mt-0.5 font-medium">
-                        {current.role}, <span className="text-[#FF5C00]">{current.subscriber}</span>
-                      </p>
+                      {(current.role || current.subscriber) && (
+                        <p className="text-gray-400 text-xs sm:text-sm mt-0.5 font-medium">
+                          {current.role}
+                          {current.role && current.subscriber && ", "}
+                          {current.subscriber && (
+                            <span className="text-[#FF5C00]">{current.subscriber}</span>
+                          )}
+                        </p>
+                      )}
                     </div>
                   </motion.div>
                 </AnimatePresence>
@@ -198,3 +217,4 @@ export default function Testimonials() {
     </section>
   );
 }
+

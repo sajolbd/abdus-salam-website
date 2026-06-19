@@ -4,12 +4,13 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
-
 // Checkmark SVG icon that transitions colors based on highlighted state
 const CheckIcon = ({ active }: { active: boolean }) => (
   <svg
     className={`w-5 h-5 flex-shrink-0 transition-colors duration-300 ${
-      active ? "text-[#FF5C00] drop-shadow-[0_0_3px_rgba(255,92,0,0.6)]" : "text-neutral-400"
+      active
+        ? "text-[#FF5C00] drop-shadow-[0_0_3px_rgba(255,92,0,0.6)]"
+        : "text-neutral-400"
     }`}
     viewBox="0 0 24 24"
     fill="none"
@@ -27,7 +28,7 @@ const GlowingCardWave = () => (
   <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 rounded-[28px]">
     {/* Base ambient radial glow */}
     <div className="absolute -left-1/4 bottom-1/4 w-[150%] h-[150%] bg-[radial-gradient(circle_at_bottom_left,rgba(255,92,0,0.15)_0%,transparent_60%)] blur-[40px]" />
-    
+
     {/* Wave graphics */}
     <svg
       className="absolute bottom-0 left-0 w-full h-full opacity-60"
@@ -159,7 +160,7 @@ export default function PricingSection() {
     },
     long: {
       standard: {
-        price: "$799",
+        price: "$40",
         description: "Ideal for YouTube videos, podcasts, and vlogs",
         features: [
           "Up to 15 minutes of content",
@@ -167,17 +168,17 @@ export default function PricingSection() {
           "Standard color grading",
           "Audio cleanup & leveling",
           "2 rounds of revisions",
-          "5-7 day delivery",
+          "3-4 day delivery",
           "Full HD export (1080p)",
         ],
       },
       premium: {
-        price: "$3,999",
+        price: "$65",
         description: "Cinematic documentaries, online courses & movies",
         features: [
-          "Up to 60 minutes of content",
+          "Up to 25 minutes + of content",
           "Full cinematic styling & grading",
-          "Advanced motion intros & transitions",
+          "Motion intros & transitions",
           "Custom sound design & sound effects",
           "Subtitles & text styling",
           "3 rounds of revisions",
@@ -279,9 +280,18 @@ export default function PricingSection() {
 
   const currentPlans = pricingData[activeTab];
   const defaultHighlightedCardIndex: number = currentPlans.premium ? 1 : 0;
-  const isStandardActive = hoveredCard !== null ? hoveredCard === 0 : defaultHighlightedCardIndex === 0;
-  const isPremiumActive = hoveredCard !== null ? hoveredCard === 1 : defaultHighlightedCardIndex === 1;
-  const isCustomActive = hoveredCard !== null ? hoveredCard === 2 : defaultHighlightedCardIndex === 2;
+  const isStandardActive =
+    hoveredCard !== null
+      ? hoveredCard === 0
+      : defaultHighlightedCardIndex === 0;
+  const isPremiumActive =
+    hoveredCard !== null
+      ? hoveredCard === 1
+      : defaultHighlightedCardIndex === 1;
+  const isCustomActive =
+    hoveredCard !== null
+      ? hoveredCard === 2
+      : defaultHighlightedCardIndex === 2;
 
   return (
     <section className="relative w-full bg-[#0C0C0E] py-20 lg:py-32 px-6 sm:px-12 md:px-16 overflow-hidden select-none">
@@ -326,8 +336,9 @@ export default function PricingSection() {
         </div>
 
         {/* Pricing Cards Grid */}
-        <div className={`grid grid-cols-1 ${currentPlans.premium ? "md:grid-cols-3" : "md:grid-cols-2 max-w-4xl mx-auto"} gap-8 w-full items-stretch pt-4`}>
-          
+        <div
+          className={`grid grid-cols-1 ${currentPlans.premium ? "md:grid-cols-3" : "md:grid-cols-2 max-w-4xl mx-auto"} gap-8 w-full items-stretch pt-4`}
+        >
           {/* Card 1: Standard Plan */}
           <div
             onMouseEnter={() => setHoveredCard(0)}
@@ -344,33 +355,47 @@ export default function PricingSection() {
             <div className="relative z-10 flex flex-col gap-6">
               {/* Title Section */}
               <div className="flex flex-col gap-1 text-left">
-                <h3 className="text-3xl font-extrabold tracking-tight">Standard</h3>
+                <h3 className="text-3xl font-extrabold tracking-tight">
+                  Standard
+                </h3>
                 <div className="flex items-baseline gap-1.5 mt-2">
-                  <span className="text-4xl font-extrabold">{currentPlans.standard.price}</span>
-                  <span className={`text-sm ${
-                    isStandardActive ? "text-neutral-400" : "text-neutral-500"
-                  }`}>per project</span>
+                  <span className="text-4xl font-extrabold">
+                    {currentPlans.standard.price}
+                  </span>
+                  <span
+                    className={`text-sm ${
+                      isStandardActive ? "text-neutral-400" : "text-neutral-500"
+                    }`}
+                  >
+                    per project
+                  </span>
                 </div>
-                <p className={`text-sm font-light mt-3 leading-relaxed ${
-                  isStandardActive ? "text-neutral-300" : "text-neutral-600"
-                }`}>
+                <p
+                  className={`text-sm font-light mt-3 leading-relaxed ${
+                    isStandardActive ? "text-neutral-300" : "text-neutral-600"
+                  }`}
+                >
                   {currentPlans.standard.description}
                 </p>
               </div>
 
               {/* Divider */}
-              <hr className={`w-full ${
-                isStandardActive ? "border-white/10" : "border-neutral-200"
-              }`} />
+              <hr
+                className={`w-full ${
+                  isStandardActive ? "border-white/10" : "border-neutral-200"
+                }`}
+              />
 
               {/* Features List */}
               <div className="flex flex-col gap-4 text-left">
                 {currentPlans.standard.features.map((feature, idx) => (
                   <div key={idx} className="flex items-center gap-3">
                     <CheckIcon active={isStandardActive} />
-                    <span className={`text-sm font-light leading-none ${
-                      isStandardActive ? "text-gray-100" : "text-neutral-800"
-                    }`}>
+                    <span
+                      className={`text-sm font-light leading-none ${
+                        isStandardActive ? "text-gray-100" : "text-neutral-800"
+                      }`}
+                    >
                       {feature}
                     </span>
                   </div>
@@ -411,37 +436,53 @@ export default function PricingSection() {
                 {/* Title Section */}
                 <div className="flex flex-col gap-1 text-left">
                   <div className="flex items-center justify-between w-full">
-                    <h3 className="text-3xl font-extrabold tracking-tight">Premium</h3>
+                    <h3 className="text-3xl font-extrabold tracking-tight">
+                      Premium
+                    </h3>
                     <span className="bg-[#FF5C00] text-white text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
                       Most popular
                     </span>
                   </div>
                   <div className="flex items-baseline gap-1.5 mt-2">
-                    <span className="text-4xl font-extrabold">{currentPlans.premium.price}</span>
-                    <span className={`text-sm ${
-                      isPremiumActive ? "text-neutral-400" : "text-neutral-500"
-                    }`}>per project</span>
+                    <span className="text-4xl font-extrabold">
+                      {currentPlans.premium.price}
+                    </span>
+                    <span
+                      className={`text-sm ${
+                        isPremiumActive
+                          ? "text-neutral-400"
+                          : "text-neutral-500"
+                      }`}
+                    >
+                      per project
+                    </span>
                   </div>
-                  <p className={`text-sm font-light mt-3 leading-relaxed ${
-                    isPremiumActive ? "text-neutral-300" : "text-neutral-600"
-                  }`}>
+                  <p
+                    className={`text-sm font-light mt-3 leading-relaxed ${
+                      isPremiumActive ? "text-neutral-300" : "text-neutral-600"
+                    }`}
+                  >
                     {currentPlans.premium.description}
                   </p>
                 </div>
 
                 {/* Divider */}
-                <hr className={`w-full ${
-                  isPremiumActive ? "border-white/10" : "border-neutral-200"
-                }`} />
+                <hr
+                  className={`w-full ${
+                    isPremiumActive ? "border-white/10" : "border-neutral-200"
+                  }`}
+                />
 
                 {/* Features List */}
                 <div className="flex flex-col gap-4 text-left">
                   {currentPlans.premium.features.map((feature, idx) => (
                     <div key={idx} className="flex items-center gap-3">
                       <CheckIcon active={isPremiumActive} />
-                      <span className={`text-sm font-light leading-none ${
-                        isPremiumActive ? "text-gray-100" : "text-neutral-800"
-                      }`}>
+                      <span
+                        className={`text-sm font-light leading-none ${
+                          isPremiumActive ? "text-gray-100" : "text-neutral-800"
+                        }`}
+                      >
                         {feature}
                       </span>
                     </div>
@@ -481,32 +522,43 @@ export default function PricingSection() {
             <div className="relative z-10 flex flex-col gap-6">
               {/* Title Section */}
               <div className="flex flex-col gap-1 text-left">
-                <h3 className="text-3xl font-extrabold tracking-tight">Custom</h3>
-                <p className={`text-sm font-light mt-3 leading-relaxed ${
-                  isCustomActive ? "text-neutral-300" : "text-neutral-600"
-                }`}>
+                <h3 className="text-3xl font-extrabold tracking-tight">
+                  Custom
+                </h3>
+                <p
+                  className={`text-sm font-light mt-3 leading-relaxed ${
+                    isCustomActive ? "text-neutral-300" : "text-neutral-600"
+                  }`}
+                >
                   {currentPlans.custom.description}
                 </p>
-                <p className={`text-xs mt-1 leading-relaxed ${
-                  isCustomActive ? "text-neutral-400" : "text-neutral-500"
-                }`}>
-                  No fixed plans. No unnecessary extras. Just the exact editing solution your project needs.
+                <p
+                  className={`text-xs mt-1 leading-relaxed ${
+                    isCustomActive ? "text-neutral-400" : "text-neutral-500"
+                  }`}
+                >
+                  No fixed plans. No unnecessary extras. Just the exact editing
+                  solution your project needs.
                 </p>
               </div>
 
               {/* Divider */}
-              <hr className={`w-full ${
-                isCustomActive ? "border-white/10" : "border-neutral-200"
-              }`} />
+              <hr
+                className={`w-full ${
+                  isCustomActive ? "border-white/10" : "border-neutral-200"
+                }`}
+              />
 
               {/* Features List */}
               <div className="flex flex-col gap-4 text-left">
                 {currentPlans.custom.features.map((feature, idx) => (
                   <div key={idx} className="flex items-center gap-3">
                     <CheckIcon active={isCustomActive} />
-                    <span className={`text-sm font-light leading-none ${
-                      isCustomActive ? "text-gray-100" : "text-neutral-800"
-                    }`}>
+                    <span
+                      className={`text-sm font-light leading-none ${
+                        isCustomActive ? "text-gray-100" : "text-neutral-800"
+                      }`}
+                    >
                       {feature}
                     </span>
                   </div>
@@ -528,7 +580,6 @@ export default function PricingSection() {
               </button>
             </div>
           </div>
-
         </div>
       </div>
     </section>
